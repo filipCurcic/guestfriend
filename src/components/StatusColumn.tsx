@@ -21,12 +21,15 @@ export const StatusColumn = ({ status, tickets }: StatusColumnProps) => {
 
   const { headerColor, title } = statusData;
 
+  const numberOfTickets = filteredTickets.length;
+
   return (
     <Stack vertical gap="small-xs" css={{ flexBasis: '100%' }}>
       <ColumnHeader
         backgroundColor={headerColor}
         title={title}
         status={status}
+        numberOfTickets={numberOfTickets}
       />
       <TicketsContainer statusData={statusData} tickets={filteredTickets} />
     </Stack>

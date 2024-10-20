@@ -11,11 +11,13 @@ type ColumnHeaderProps = {
   title: string;
   backgroundColor: keyof Tokens['colors'];
   status: StatusEnum;
+  numberOfTickets: number;
 };
 export const ColumnHeader = ({
   title,
   status,
   backgroundColor,
+  numberOfTickets,
 }: ColumnHeaderProps) => {
   const { addTicket } = useTicketContext();
   const tokens = useTokens();
@@ -51,7 +53,7 @@ export const ColumnHeader = ({
           +
         </Button>
       </Stack>
-      <Stack center>(Number of tickets)</Stack>
+      <Stack center>({numberOfTickets})</Stack>
     </Stack>
   );
 };
