@@ -28,12 +28,14 @@ export const TicketsContainer = ({
       padding="small-lg"
       gap="small-lg"
     >
-      <TicketItem
-        title={'ticket.title'}
-        id={'ticket.id'}
-        key={'ticket.id'}
-        backgroundColor={statusData.ticketColor}
-      />
+      {tickets.map((ticket) => (
+        <TicketItem
+          title={ticket.title}
+          id={ticket.id}
+          key={ticket.id}
+          backgroundColor={statusData.ticketColor}
+        />
+      ))}
     </Stack>
   );
 };

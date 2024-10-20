@@ -9,7 +9,7 @@ export enum StatusEnum {
 export type Ticket = {
   id: string;
   title: string;
-  category: StatusEnum;
+  status: StatusEnum;
 };
 
 export type Color = keyof typeof tokens.colors;

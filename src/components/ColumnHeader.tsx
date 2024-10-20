@@ -5,14 +5,25 @@ import { Typography } from './common/Typography';
 import { StatusEnum } from '../types/SharedTypes';
 
 import { Tokens, useTokens } from '../theme/tokens';
+import { useTicketContext } from '../context/TicketContext';
 
 type ColumnHeaderProps = {
   title: string;
   backgroundColor: keyof Tokens['colors'];
   status: StatusEnum;
 };
-export const ColumnHeader = ({ title, backgroundColor }: ColumnHeaderProps) => {
+export const ColumnHeader = ({
+  title,
+  status,
+  backgroundColor,
+}: ColumnHeaderProps) => {
+  const { addTicket } = useTicketContext();
   const tokens = useTokens();
+
+  const handleNewTicket = () => {
+    addTicket(`New ${status} Ticket`, status);
+  };
+
   return (
     <Stack
       vertical
@@ -32,7 +43,11 @@ export const ColumnHeader = ({ title, backgroundColor }: ColumnHeaderProps) => {
         >
           {title}
         </Typography>
-        <Button size="large-lg" css={{ fontSize: '25px' }}>
+        <Button
+          size="large-lg"
+          css={{ fontSize: '25px' }}
+          onClick={handleNewTicket}
+        >
           +
         </Button>
       </Stack>

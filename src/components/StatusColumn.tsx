@@ -1,6 +1,10 @@
+import { useMemo } from 'react';
+
 import { Stack } from './common/Stack';
 import { ColumnHeader } from './ColumnHeader';
 import { TicketsContainer } from './TicketsContainer';
+
+import { useFilteredTickets } from '../hooks/useGetFilteredTickets';
 
 import { StatusEnum, type Ticket } from '../types/SharedTypes';
 
@@ -8,28 +12,23 @@ import getStatus from '../util/getStatus';
 
 type StatusColumnProps = {
   status: StatusEnum;
-  isOver?: boolean;
   tickets: Ticket[];
 };
 
-export const StatusColumn = ({
-  status,
-  isOver,
-  tickets,
-}: StatusColumnProps) => {
-  const statusData = getStatus(status);
+export const StatusColumn = ({ status, tickets }: StatusColumnProps) => {
+  const filteredTickets = useFilteredTickets(tickets, status);
+  const statusData = useMemo(() => getStatus(status), [status]);
+
+  const { headerColor, title } = statusData;
+
   return (
-    <Stack
-      vertical
-      gap="small-xs"
-      css={{ flexBasis: '100%', border: isOver ? '1px solid black' : 'none' }}
-    >
+    <Stack vertical gap="small-xs" css={{ flexBasis: '100%' }}>
       <ColumnHeader
-        backgroundColor={statusData.headerColor}
-        title={statusData.title + isOver}
+        backgroundColor={headerColor}
+        title={title}
         status={status}
       />
-      <TicketsContainer statusData={statusData} tickets={tickets} />
+      <TicketsContainer statusData={statusData} tickets={filteredTickets} />
     </Stack>
   );
 };

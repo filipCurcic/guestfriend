@@ -1,10 +1,11 @@
 import { useRef, useState } from 'react';
-import { Button } from './common/Button';
 import { Stack } from './common/Stack';
 
 import { type Color } from '../types/SharedTypes';
 
 import { tokens } from '../theme/base';
+import { useTicketContext } from '../context/TicketContext';
+import { TicketItemButtons } from './TicketItemButtons';
 
 type TicketItemProps = {
   backgroundColor: Color;
@@ -12,9 +13,11 @@ type TicketItemProps = {
   id: string;
 };
 
-export const TicketItem = ({ backgroundColor, title }: TicketItemProps) => {
+export const TicketItem = ({ backgroundColor, title, id }: TicketItemProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isContentEditable, setIsContentEditable] = useState(false);
+
+  const { removeTicket, updateTicket } = useTicketContext();
 
   const inputRef = useRef<HTMLDivElement>(null);
 
@@ -32,12 +35,27 @@ export const TicketItem = ({ backgroundColor, title }: TicketItemProps) => {
     }
   };
 
-  const handleBlur = () => {
+  const handleBlur = (e: React.FocusEvent<HTMLDivElement>) => {
+    if (
+      e.relatedTarget &&
+      e.relatedTarget instanceof HTMLElement &&
+      e.relatedTarget.tagName === 'BUTTON'
+    ) {
+      return;
+    }
     setIsContentEditable(false);
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLDivElement>) => {
-    console.log(e.target.textContent);
+  const handleUpdate = () => {
+    updateTicket(id, {
+      title: inputRef?.current?.textContent ?? '',
+    });
+    setIsContentEditable(false);
+  };
+
+  const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    removeTicket(id);
   };
 
   return (
@@ -62,15 +80,11 @@ export const TicketItem = ({ backgroundColor, title }: TicketItemProps) => {
       }}
     >
       {isHovered && (
-        <Button
-          css={{
-            position: 'absolute',
-            top: tokens.space['small-xxs'],
-            right: tokens.space['small-xxs'],
-          }}
-        >
-          x
-        </Button>
+        <TicketItemButtons
+          isEditing={isContentEditable}
+          onDelete={handleDelete}
+          onEdit={handleUpdate}
+        />
       )}
       <div
         css={{
@@ -85,7 +99,6 @@ export const TicketItem = ({ backgroundColor, title }: TicketItemProps) => {
         onBlur={handleBlur}
         suppressContentEditableWarning={true}
         ref={inputRef}
-        onInput={handleChange}
       >
         {title}
       </div>
