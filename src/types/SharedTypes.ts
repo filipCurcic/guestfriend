@@ -20,3 +20,14 @@ export type Status = {
   ticketColor: Color;
   containerColor: Color;
 };
+
+export enum SortableTypeEnum {
+  TICKET = 'TICKET',
+  COLUMN = 'COLUMN',
+}
+
+export type ActiveItem = {
+  id: string;
+  title: string;
+  backgroundColor: string;
+};

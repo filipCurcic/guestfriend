@@ -1,5 +1,6 @@
 import { createContext, useCallback, useContext, useState } from 'react';
-import { StatusEnum, Ticket } from '../types/SharedTypes';
+
+import { StatusEnum, type Ticket } from '../types/SharedTypes';
 
 type TicketContextType = {
   tickets: Ticket[] | [];
