@@ -1,32 +1,34 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
+
 import { Stack } from './common/Stack';
+import { TicketItemButtons } from './TicketItemButtons';
 
 import { type Color } from '../types/SharedTypes';
 
 import { tokens } from '../theme/base';
 import { useTicketContext } from '../context/TicketContext';
-import { TicketItemButtons } from './TicketItemButtons';
+import { useTicketState } from '../hooks/useTicketState';
 
-type TicketItemProps = {
+export type TicketItemProps = {
   backgroundColor: Color;
   title: string;
   id: string;
 };
 
 export const TicketItem = ({ backgroundColor, title, id }: TicketItemProps) => {
-  const [isHovered, setIsHovered] = useState(false);
-  const [isContentEditable, setIsContentEditable] = useState(false);
+  const {
+    isHovered,
+    isContentEditable,
+    handleHoverEffects,
+    toggleContentEditable,
+  } = useTicketState();
 
   const { removeTicket, updateTicket } = useTicketContext();
 
   const inputRef = useRef<HTMLDivElement>(null);
 
-  const handleHoverEffects = (event: 'enter' | 'leave') => {
-    setIsHovered(event === 'enter' ? true : false);
-  };
-
   const handleDoubleClick = () => {
-    setIsContentEditable(true);
+    toggleContentEditable();
     if (inputRef.current) {
       //Workaround for properly setting focus on a contentEditable div
       setTimeout(function () {
@@ -43,14 +45,14 @@ export const TicketItem = ({ backgroundColor, title, id }: TicketItemProps) => {
     ) {
       return;
     }
-    setIsContentEditable(false);
+    toggleContentEditable();
   };
 
   const handleUpdate = () => {
     updateTicket(id, {
       title: inputRef?.current?.textContent ?? '',
     });
-    setIsContentEditable(false);
+    toggleContentEditable();
   };
 
   const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -67,7 +69,7 @@ export const TicketItem = ({ backgroundColor, title, id }: TicketItemProps) => {
       css={{
         backgroundColor: tokens.colors[backgroundColor],
         cursor: 'pointer',
-        width: '70%',
+        width: '100%',
         padding: tokens.space['large-xs'],
         boxShadow: tokens.elevation.sm,
         position: 'relative',

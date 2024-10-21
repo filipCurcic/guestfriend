@@ -3,8 +3,15 @@ import { Stack } from './components/common/Stack';
 
 import { useTokens } from './theme/tokens';
 
+import { DndContext, closestCenter } from '@dnd-kit/core';
+
+import { useDragAndDrop } from './hooks/useDragAndDrop';
+
 function App() {
   const tokens = useTokens();
+  const { activeItem, sensors, handleDragStart, handleDragEnd } =
+    useDragAndDrop(100, 5);
+
   return (
     <Stack
       center
@@ -21,7 +28,14 @@ function App() {
           background: tokens.colors.white,
         }}
       >
-        <Board />
+        <DndContext
+          sensors={sensors}
+          onDragEnd={handleDragEnd}
+          onDragStart={handleDragStart}
+          collisionDetection={closestCenter}
+        >
+          <Board activeItem={activeItem} />
+        </DndContext>
       </Stack>
     </Stack>
   );
