@@ -1,7 +1,5 @@
-import { ButtonHTMLAttributes } from 'react';
-import { Tokens } from '../../../theme/tokens';
+import { ButtonHTMLAttributes, PropsWithChildren } from 'react';
 
-export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  size?: keyof Tokens['size'];
-  color?: keyof Tokens['colors'];
-};
+export type ButtonProps = PropsWithChildren<
+  ButtonHTMLAttributes<HTMLButtonElement> & {}
+>;

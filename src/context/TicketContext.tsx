@@ -1,15 +1,24 @@
-import { createContext, useCallback, useContext, useState } from 'react';
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from 'react';
 
 import { StatusEnum, type Ticket } from '../types/SharedTypes';
+import { useSearchContext } from './SearchContext';
 
 type TicketContextType = {
   tickets: Ticket[] | [];
-  addTicket: (ticketContent: string, category: StatusEnum) => void;
+  addTicket: (ticketContent: string, category: StatusEnum, id: string) => void;
   removeTicket: (ticketId: string) => void;
   updateTicket: (
     ticketId: string,
     updatedContent: Partial<Omit<Ticket, 'id'>>
   ) => void;
+  onSearchChange: (searchTerm: string) => void;
+  searchTerm: string;
 };
 
 export const TicketContext = createContext<TicketContextType>({
@@ -17,6 +26,8 @@ export const TicketContext = createContext<TicketContextType>({
   addTicket: () => {},
   removeTicket: () => {},
   updateTicket: () => {},
+  onSearchChange: () => {},
+  searchTerm: '',
 });
 
 export const useTicketContext = () => {
@@ -36,16 +47,22 @@ export const TicketContextProvider = ({
 }) => {
   const [tickets, setTickets] = useState<Ticket[]>([]);
 
-  const addTicket = useCallback((ticketContent: string, status: StatusEnum) => {
-    const newTicket: Ticket = {
-      id: crypto.randomUUID(),
-      title: ticketContent,
-      status,
-    };
-    setTickets((prevTickets) => {
-      return [...prevTickets, newTicket];
-    });
-  }, []);
+  const { setSearchTerm, searchTerm, clearSearch } = useSearchContext();
+
+  const addTicket = useCallback(
+    (ticketContent: string, status: StatusEnum, id: string) => {
+      const newTicket: Ticket = {
+        title: ticketContent,
+        id,
+        status,
+      };
+      setTickets((prevTickets) => {
+        return [...prevTickets, newTicket];
+      });
+      clearSearch();
+    },
+    [clearSearch]
+  );
 
   const removeTicket = useCallback(
     (ticketId: string) => {
@@ -65,15 +82,35 @@ export const TicketContextProvider = ({
     },
     []
   );
+
+  const filteredTickets = useMemo(() => {
+    if (!searchTerm) return tickets;
+    return tickets.filter((ticket) =>
+      ticket.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }, [tickets, searchTerm]);
+
+  const contextValue = useMemo(
+    () => ({
+      tickets: filteredTickets,
+      addTicket,
+      removeTicket,
+      updateTicket,
+      onSearchChange: setSearchTerm,
+      searchTerm,
+    }),
+    [
+      filteredTickets,
+      addTicket,
+      removeTicket,
+      updateTicket,
+      setSearchTerm,
+      searchTerm,
+    ]
+  );
+
   return (
-    <TicketContext.Provider
-      value={{
-        tickets,
-        addTicket,
-        removeTicket,
-        updateTicket,
-      }}
-    >
+    <TicketContext.Provider value={contextValue}>
       {children}
     </TicketContext.Provider>
   );
