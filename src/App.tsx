@@ -1,5 +1,6 @@
-import { Board } from './components/Board';
 import { Stack } from './components/common/Stack';
+import { Board } from './components/Board';
+import { SearchBar } from './components/SearchBar';
 
 import { useTokens } from './theme/tokens';
 
@@ -18,10 +19,12 @@ function App() {
       style={{
         width: '100vw',
         height: '100vh',
+        marginTop: tokens.space['large-sm'],
       }}
     >
       <Stack
         vertical
+        gap="small-md"
         style={{
           width: '60%',
           height: '100%',
@@ -34,6 +37,7 @@ function App() {
           onDragStart={handleDragStart}
           collisionDetection={closestCenter}
         >
+          <SearchBar />
           <Board activeItem={activeItem} />
         </DndContext>
       </Stack>

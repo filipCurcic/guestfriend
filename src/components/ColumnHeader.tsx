@@ -5,6 +5,7 @@ import { Typography } from './common/Typography';
 import { StatusEnum } from '../types/SharedTypes';
 
 import { Tokens, useTokens } from '../theme/tokens';
+
 import { useTicketContext } from '../context/TicketContext';
 
 type ColumnHeaderProps = {
@@ -23,7 +24,7 @@ export const ColumnHeader = ({
   const tokens = useTokens();
 
   const handleNewTicket = () => {
-    addTicket(`New ${status} Ticket`, status);
+    addTicket(`New ${status} Ticket`, status, crypto.randomUUID());
   };
 
   return (
@@ -45,11 +46,7 @@ export const ColumnHeader = ({
         >
           {title}
         </Typography>
-        <Button
-          size="large-lg"
-          css={{ fontSize: '25px' }}
-          onClick={handleNewTicket}
-        >
+        <Button css={{ fontSize: '25px' }} onClick={handleNewTicket}>
           +
         </Button>
       </Stack>
