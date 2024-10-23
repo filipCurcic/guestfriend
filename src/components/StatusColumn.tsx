@@ -11,6 +11,7 @@ import {
 } from '@dnd-kit/sortable';
 
 import { useStatusColumn } from '../hooks/useStatusColumn';
+import { useSearchContext } from '../context/SearchContext';
 
 type StatusColumnProps = {
   status: StatusEnum;
@@ -19,8 +20,13 @@ type StatusColumnProps = {
 
 export const StatusColumn: FC<StatusColumnProps> = ({ status, tickets }) => {
   const { statusData, setNodeRef, isOver } = useStatusColumn(status);
+  const { searchTerm } = useSearchContext();
 
   const { headerColor, title } = statusData;
+
+  const filteredTickets = tickets.filter((ticket) =>
+    ticket.content.toLowerCase().includes(searchTerm.toLowerCase().trim())
+  );
 
   const numberOfTickets = tickets.length;
 
@@ -45,7 +51,7 @@ export const StatusColumn: FC<StatusColumnProps> = ({ status, tickets }) => {
         <TicketsContainer
           ticketColor={statusData.ticketColor}
           containerColor={statusData.containerColor}
-          tickets={tickets}
+          tickets={filteredTickets}
           status={status}
           isOver={isOver}
         />

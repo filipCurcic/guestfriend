@@ -9,7 +9,6 @@ import {
 } from 'react';
 
 import { Column, StatusEnum, type Ticket } from '../types/SharedTypes';
-import { useSearchContext } from './SearchContext';
 import { Active, Over } from '@dnd-kit/core';
 
 type TicketContextType = {
@@ -21,8 +20,6 @@ type TicketContextType = {
     ticketId: string,
     updatedContent: Partial<Omit<Ticket, 'id'>>
   ) => void;
-  onSearchChange: (searchTerm: string) => void;
-  searchTerm: string;
   moveTicket: (activeItem: Active, overItem: Over) => void;
 };
 
@@ -47,9 +44,7 @@ export const TicketContext = createContext<TicketContextType>({
   addTicket: () => {},
   removeTicket: () => {},
   updateTicket: () => {},
-  onSearchChange: () => {},
   moveTicket: () => {},
-  searchTerm: '',
 });
 
 export const useTicketContext = () => {
@@ -71,8 +66,6 @@ export const TicketContextProvider: FC<TicketContextProviderProps> = ({
 }) => {
   const [tickets, setTickets] = useState<Record<string, Ticket>>({});
   const [columns, setColumns] = useState(INITIAL_COLUMNS);
-
-  const { setSearchTerm, searchTerm } = useSearchContext();
 
   const addTicket = useCallback(
     (content: string, status: StatusEnum, ticketId: string) => {
@@ -186,21 +179,10 @@ export const TicketContextProvider: FC<TicketContextProviderProps> = ({
       addTicket,
       removeTicket,
       updateTicket,
-      onSearchChange: setSearchTerm,
-      searchTerm,
       columns,
       moveTicket,
     }),
-    [
-      tickets,
-      addTicket,
-      removeTicket,
-      updateTicket,
-      setSearchTerm,
-      searchTerm,
-      columns,
-      moveTicket,
-    ]
+    [tickets, addTicket, removeTicket, updateTicket, columns, moveTicket]
   );
 
   return (
