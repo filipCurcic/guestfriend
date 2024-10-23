@@ -8,8 +8,21 @@ export enum StatusEnum {
 
 export type Ticket = {
   id: string;
-  title: string;
+  content: string;
   status: StatusEnum;
+};
+
+export type Column = {
+  [key in StatusEnum]: {
+    id: StatusEnum;
+    ticketIds: string[];
+  };
+};
+
+export type Board = {
+  tickets: { [key: string]: Ticket };
+  columns: Column;
+  search: string;
 };
 
 export type Color = keyof typeof tokens.colors;
@@ -28,6 +41,7 @@ export enum SortableTypeEnum {
 
 export type ActiveItem = {
   id: string;
-  title: string;
+  content: string;
   backgroundColor: string;
+  status: StatusEnum;
 };

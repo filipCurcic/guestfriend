@@ -1,23 +1,24 @@
-import { forwardRef } from 'react';
+import { FC, forwardRef } from 'react';
 
 import { Stack } from './common/Stack';
 
 import { useTokens } from '../theme/tokens';
 
-import { type Ticket, type Status, StatusEnum } from '../types/SharedTypes';
-import { TicketWrapper } from './TicketWrapper';
+import { type Ticket, StatusEnum, Color } from '../types/SharedTypes';
+import { TicketItem } from './TicketItem';
 
 type TicketsContainerProps = {
-  statusData: Status;
   status: StatusEnum;
   tickets: Ticket[];
   isOver: boolean;
+  ticketColor: Color;
+  containerColor: Color;
 };
 
-export const TicketsContainer = forwardRef<
+export const TicketsContainer: FC<TicketsContainerProps> = forwardRef<
   HTMLDivElement,
   TicketsContainerProps
->(({ statusData, tickets, status, isOver }: TicketsContainerProps, ref) => {
+>(({ ticketColor, containerColor, tickets, status, isOver }, ref) => {
   const tokens = useTokens();
 
   return (
@@ -26,7 +27,7 @@ export const TicketsContainer = forwardRef<
       vertical
       css={{
         width: '100%',
-        backgroundColor: tokens.colors[statusData.containerColor],
+        backgroundColor: tokens.colors[containerColor],
         minHeight: '450px',
         maxHeight: '450px',
         outline: isOver ? `solid ${tokens.colors.gray400}` : 'none',
@@ -37,11 +38,12 @@ export const TicketsContainer = forwardRef<
       gap="small-lg"
     >
       {tickets.map((ticket) => (
-        <TicketWrapper
+        <TicketItem
           key={ticket.id}
-          ticket={ticket}
+          content={ticket.content}
+          id={ticket.id}
+          backgroundColor={ticketColor}
           status={status}
-          backgroundColor={statusData.ticketColor}
         />
       ))}
     </Stack>

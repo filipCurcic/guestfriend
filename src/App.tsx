@@ -4,7 +4,7 @@ import { SearchBar } from './components/SearchBar';
 
 import { useTokens } from './theme/tokens';
 
-import { DndContext, closestCenter } from '@dnd-kit/core';
+import { DndContext, pointerWithin } from '@dnd-kit/core';
 
 import { useDragAndDrop } from './hooks/useDragAndDrop';
 
@@ -34,7 +34,7 @@ function App() {
           sensors={sensors}
           onDragEnd={handleDragEnd}
           onDragStart={handleDragStart}
-          collisionDetection={closestCenter}
+          collisionDetection={pointerWithin}
         >
           <SearchBar />
           <Board activeItem={activeItem} />

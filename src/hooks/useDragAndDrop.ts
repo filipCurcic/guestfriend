@@ -8,7 +8,7 @@ import {
 } from '@dnd-kit/core';
 import { PointerSensor, KeyboardSensor } from '@dnd-kit/core';
 import { sortableKeyboardCoordinates } from '@dnd-kit/sortable';
-import { type ActiveItem, StatusEnum } from '../types/SharedTypes';
+import { type ActiveItem } from '../types/SharedTypes';
 import { useTicketContext } from '../context/TicketContext';
 
 export const useDragAndDrop = (
@@ -21,7 +21,7 @@ export const useDragAndDrop = (
   handleDragEnd: (event: DragEndEvent) => void;
 } => {
   const [activeItem, setActiveItem] = useState<ActiveItem>();
-  const { updateTicket } = useTicketContext();
+  const { moveTicket } = useTicketContext();
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -41,20 +41,16 @@ export const useDragAndDrop = (
     const currentData = active.data.current;
     setActiveItem({
       id: id as string,
-      title: currentData?.title,
+      content: currentData?.content,
       backgroundColor: currentData?.backgroundColor,
+      status: currentData?.status,
     });
   };
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
     if (!over) return;
-    const activeStatus = active?.data?.current?.status;
-    const overStatus = over?.data?.current?.status;
-    if (activeStatus === overStatus) return;
-    updateTicket(active.id as string, {
-      status: overStatus as StatusEnum,
-    });
+    moveTicket(active, over);
   };
 
   return { activeItem, sensors, handleDragStart, handleDragEnd };

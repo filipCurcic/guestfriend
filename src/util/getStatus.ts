@@ -1,6 +1,6 @@
 import { type Status, StatusEnum } from '../types/SharedTypes';
 
-const STATUSES: Record<StatusEnum, Status> = {
+export const STATUSES: Record<StatusEnum, Status> = {
   [StatusEnum.TO_DO]: {
     title: 'To Do',
     headerColor: 'blue600',
