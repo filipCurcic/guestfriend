@@ -8,6 +8,7 @@ import { type Color } from '../types/SharedTypes';
 import { tokens } from '../theme/base';
 import { useTicketContext } from '../context/TicketContext';
 import { useTicketState } from '../hooks/useTicketState';
+import { mapResponsiveValues } from '../responsive/mapResponsiveValues';
 
 export type TicketItemProps = {
   backgroundColor: Color;
@@ -66,20 +67,33 @@ export const TicketItem = ({ backgroundColor, title, id }: TicketItemProps) => {
       onMouseEnter={() => handleHoverEffects('enter')}
       onMouseLeave={() => handleHoverEffects('leave')}
       onDoubleClick={handleDoubleClick}
-      css={{
-        backgroundColor: tokens.colors[backgroundColor],
-        cursor: 'pointer',
-        width: '100%',
-        padding: tokens.space['large-xs'],
-        boxShadow: tokens.elevation.sm,
-        position: 'relative',
-        wordBreak: 'break-word',
-        overflowWrap: 'break-word',
-        transition: 'box-shadow 0.2s',
-        ':hover': {
-          boxShadow: tokens.elevation.md,
+      css={[
+        {
+          backgroundColor: tokens.colors[backgroundColor],
+          cursor: 'pointer',
+          width: '100%',
+          padding: tokens.space['large-xs'],
+          boxShadow: tokens.elevation.sm,
+          position: 'relative',
+          wordBreak: 'break-word',
+          overflowWrap: 'break-word',
+          transition: 'box-shadow 0.2s',
+          ':hover': {
+            boxShadow: tokens.elevation.md,
+          },
         },
-      }}
+        mapResponsiveValues({
+          sm: {
+            fontSize: `${tokens.size['small-sm']}`,
+            padding: tokens.space['small-xs'],
+          },
+          md: {
+            fontSize: `${tokens.size['large-xs']}`,
+            padding: tokens.space['small-md'],
+          },
+          lg: { fontSize: `${tokens.size['large-sm']}` },
+        }),
+      ]}
     >
       {isHovered && (
         <TicketItemButtons

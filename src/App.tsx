@@ -16,17 +16,16 @@ function App() {
   return (
     <Stack
       center
-      style={{
+      css={{
         width: '100vw',
-        height: '100vh',
         marginTop: tokens.space['large-sm'],
       }}
     >
       <Stack
         vertical
         gap="small-md"
-        style={{
-          width: '60%',
+        css={{
+          width: '100%',
           height: '100%',
           background: tokens.colors.white,
         }}
