@@ -1,31 +1,22 @@
 import { useMemo } from 'react';
 
-import { useFilteredTickets } from '../hooks/useGetFilteredTickets';
-
-import { SortableTypeEnum, StatusEnum, Ticket } from '../types/SharedTypes';
+import { SortableTypeEnum, StatusEnum } from '../types/SharedTypes';
 
 import getStatus from '../util/getStatus';
 
 import { useSortable } from '@dnd-kit/sortable';
 
-export const useStatusColumn = (status: StatusEnum, tickets: Ticket[]) => {
-  const filteredTickets = useFilteredTickets(tickets, status);
+export const useStatusColumn = (status: StatusEnum) => {
   const statusData = useMemo(() => getStatus(status), [status]);
-  const id = `id-${status}`;
 
   const { setNodeRef, isOver } = useSortable({
-    id,
+    id: status,
     data: { type: SortableTypeEnum.COLUMN, status },
   });
 
-  const numberOfTickets = filteredTickets.length;
-
   return {
-    id,
     statusData,
-    filteredTickets,
     setNodeRef,
     isOver,
-    numberOfTickets,
   };
 };

@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { Stack } from './common/Stack';
 import { ColumnHeader } from './ColumnHeader';
 import { TicketsContainer } from './TicketsContainer';
@@ -16,25 +17,25 @@ type StatusColumnProps = {
   tickets: Ticket[];
 };
 
-export const StatusColumn = ({ status, tickets }: StatusColumnProps) => {
-  const {
-    id,
-    statusData,
-    filteredTickets,
-    setNodeRef,
-    isOver,
-    numberOfTickets,
-  } = useStatusColumn(status, tickets);
+export const StatusColumn: FC<StatusColumnProps> = ({ status, tickets }) => {
+  const { statusData, setNodeRef, isOver } = useStatusColumn(status);
 
   const { headerColor, title } = statusData;
 
+  const numberOfTickets = tickets.length;
+
   return (
     <SortableContext
-      items={filteredTickets}
+      items={tickets}
       strategy={verticalListSortingStrategy}
-      id={id}
+      id={status}
     >
-      <Stack vertical gap="small-xs" css={{ flexBasis: '100%' }}>
+      <Stack
+        vertical
+        gap="small-xs"
+        css={{ flexBasis: '100%' }}
+        ref={setNodeRef}
+      >
         <ColumnHeader
           backgroundColor={headerColor}
           title={title}
@@ -42,9 +43,9 @@ export const StatusColumn = ({ status, tickets }: StatusColumnProps) => {
           numberOfTickets={numberOfTickets}
         />
         <TicketsContainer
-          statusData={statusData}
-          tickets={filteredTickets}
-          ref={setNodeRef}
+          ticketColor={statusData.ticketColor}
+          containerColor={statusData.containerColor}
+          tickets={tickets}
           status={status}
           isOver={isOver}
         />

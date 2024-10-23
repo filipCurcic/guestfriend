@@ -6,19 +6,25 @@ import { useTicketContext } from '../context/TicketContext';
 
 import { type ActiveItem, type Color, StatusEnum } from '../types/SharedTypes';
 import { DragOverlay } from '@dnd-kit/core';
+import { FC } from 'react';
 
 type BoardProps = {
   activeItem?: ActiveItem;
 };
 
-export const Board = ({ activeItem }: BoardProps) => {
-  const { tickets } = useTicketContext();
-
+export const Board: FC<BoardProps> = ({ activeItem }) => {
+  const { tickets, columns } = useTicketContext();
   return (
     <Stack horizontal gap={'small-xs'}>
-      <StatusColumn status={StatusEnum.TO_DO} tickets={tickets} />
-      <StatusColumn status={StatusEnum.IN_PROGRESS} tickets={tickets} />
-      <StatusColumn status={StatusEnum.DONE} tickets={tickets} />
+      {Object.keys(columns).map((column) => (
+        <StatusColumn
+          status={column as StatusEnum}
+          key={column}
+          tickets={columns[column as StatusEnum].ticketIds.map(
+            (ticketId) => tickets[ticketId]
+          )}
+        />
+      ))}
       <DragOverlay
         dropAnimation={{
           duration: 15,
@@ -29,7 +35,8 @@ export const Board = ({ activeItem }: BoardProps) => {
           <TicketItem
             id={activeItem.id}
             backgroundColor={activeItem.backgroundColor as Color}
-            title={activeItem.title}
+            content={activeItem.content}
+            status={activeItem.status}
           />
         ) : null}
       </DragOverlay>

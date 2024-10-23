@@ -1,22 +1,30 @@
-import { useRef } from 'react';
+import { FC, useRef } from 'react';
 
 import { Stack } from './common/Stack';
 import { TicketItemButtons } from './TicketItemButtons';
 
-import { type Color } from '../types/SharedTypes';
+import { SortableTypeEnum, StatusEnum, type Color } from '../types/SharedTypes';
 
 import { tokens } from '../theme/base';
 import { useTicketContext } from '../context/TicketContext';
 import { useTicketState } from '../hooks/useTicketState';
 import { mapResponsiveValues } from '../responsive/mapResponsiveValues';
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 
 export type TicketItemProps = {
   backgroundColor: Color;
-  title: string;
+  content: string;
   id: string;
+  status: StatusEnum;
 };
 
-export const TicketItem = ({ backgroundColor, title, id }: TicketItemProps) => {
+export const TicketItem: FC<TicketItemProps> = ({
+  backgroundColor,
+  content,
+  status,
+  id,
+}) => {
   const {
     isHovered,
     isContentEditable,
@@ -25,6 +33,12 @@ export const TicketItem = ({ backgroundColor, title, id }: TicketItemProps) => {
   } = useTicketState();
 
   const { removeTicket, updateTicket } = useTicketContext();
+
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({
+      id,
+      data: { type: SortableTypeEnum.TICKET, status, content, backgroundColor },
+    });
 
   const inputRef = useRef<HTMLDivElement>(null);
 
@@ -51,18 +65,21 @@ export const TicketItem = ({ backgroundColor, title, id }: TicketItemProps) => {
 
   const handleUpdate = () => {
     updateTicket(id, {
-      title: inputRef?.current?.textContent ?? '',
+      content: inputRef?.current?.textContent ?? '',
     });
     toggleContentEditable();
   };
 
   const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    removeTicket(id);
+    removeTicket(id, status);
   };
 
   return (
     <Stack
+      ref={setNodeRef}
+      {...attributes}
+      {...listeners}
       vertical
       onMouseEnter={() => handleHoverEffects('enter')}
       onMouseLeave={() => handleHoverEffects('leave')}
@@ -77,7 +94,8 @@ export const TicketItem = ({ backgroundColor, title, id }: TicketItemProps) => {
           position: 'relative',
           wordBreak: 'break-word',
           overflowWrap: 'break-word',
-          transition: 'box-shadow 0.2s',
+          transform: CSS.Transform.toString(transform),
+          transition,
           ':hover': {
             boxShadow: tokens.elevation.md,
           },
@@ -116,7 +134,7 @@ export const TicketItem = ({ backgroundColor, title, id }: TicketItemProps) => {
         suppressContentEditableWarning={true}
         ref={inputRef}
       >
-        {title}
+        {content}
       </div>
     </Stack>
   );
