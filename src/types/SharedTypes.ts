@@ -6,6 +6,12 @@ export enum StatusEnum {
   DONE = 'DONE',
 }
 
+export enum LocalStorageKeysEnum {
+  TICKETS = 'tickets',
+  COLUMNS = 'columns',
+  SEARCH = 'search',
+}
+
 export type Ticket = {
   id: string;
   content: string;

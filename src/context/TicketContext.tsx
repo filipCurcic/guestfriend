@@ -5,11 +5,16 @@ import {
   useCallback,
   useContext,
   useMemo,
-  useState,
 } from 'react';
 
-import { Column, StatusEnum, type Ticket } from '../types/SharedTypes';
+import {
+  Column,
+  LocalStorageKeysEnum,
+  StatusEnum,
+  type Ticket,
+} from '../types/SharedTypes';
 import { Active, Over } from '@dnd-kit/core';
+import { useLocalStorage } from '../hooks/useLocalStorage';
 
 type TicketContextType = {
   tickets: Record<string, Ticket>;
@@ -64,8 +69,14 @@ type TicketContextProviderProps = {
 export const TicketContextProvider: FC<TicketContextProviderProps> = ({
   children,
 }) => {
-  const [tickets, setTickets] = useState<Record<string, Ticket>>({});
-  const [columns, setColumns] = useState(INITIAL_COLUMNS);
+  const [tickets, setTickets] = useLocalStorage<Record<string, Ticket>>(
+    LocalStorageKeysEnum.TICKETS,
+    {}
+  );
+  const [columns, setColumns] = useLocalStorage(
+    LocalStorageKeysEnum.COLUMNS,
+    INITIAL_COLUMNS
+  );
 
   const addTicket = useCallback(
     (content: string, status: StatusEnum, ticketId: string) => {
@@ -86,25 +97,28 @@ export const TicketContextProvider: FC<TicketContextProviderProps> = ({
         },
       }));
     },
-    []
+    [setColumns, setTickets]
   );
 
-  const removeTicket = useCallback((ticketId: string, status: StatusEnum) => {
-    setTickets((prevTickets) => {
-      const newTickets = { ...prevTickets };
-      delete newTickets[ticketId];
-      return newTickets;
-    });
-    setColumns((prevColumns) => ({
-      ...prevColumns,
-      [status]: {
-        ...prevColumns[status],
-        ticketIds: prevColumns[status].ticketIds.filter(
-          (id) => id !== ticketId
-        ),
-      },
-    }));
-  }, []);
+  const removeTicket = useCallback(
+    (ticketId: string, status: StatusEnum) => {
+      setTickets((prevTickets) => {
+        const newTickets = { ...prevTickets };
+        delete newTickets[ticketId];
+        return newTickets;
+      });
+      setColumns((prevColumns) => ({
+        ...prevColumns,
+        [status]: {
+          ...prevColumns[status],
+          ticketIds: prevColumns[status].ticketIds.filter(
+            (id) => id !== ticketId
+          ),
+        },
+      }));
+    },
+    [setColumns, setTickets]
+  );
 
   const updateTicket = useCallback(
     (ticketId: string, updatedContent: Partial<Omit<Ticket, 'id'>>) => {
@@ -120,7 +134,7 @@ export const TicketContextProvider: FC<TicketContextProviderProps> = ({
         };
       });
     },
-    []
+    [setTickets]
   );
 
   const moveTicket = useCallback(
