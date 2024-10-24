@@ -24,7 +24,6 @@ export const SearchBar = () => {
         padding: tokens.space['small-xs'],
         border: 'none',
         borderBottom: `1px solid ${tokens.colors.gray200}`,
-        marginLeft: 'auto',
       }}
     />
   );

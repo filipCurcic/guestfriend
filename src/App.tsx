@@ -44,8 +44,18 @@ function App() {
           collisionDetection={pointerWithin}
         >
           <header>
-            <Stack horizontal justify="center">
-              <Typography as="h1" color="black" css={{ margin: '0 auto' }}>
+            <Stack horizontal justify="space-between">
+              <Typography
+                as="h1"
+                color="black"
+                css={[
+                  mapResponsiveValues({
+                    sm: { fontSize: tokens.size['large-xs'] },
+                    md: { fontSize: tokens.size['large-sm'] },
+                    lg: { fontSize: tokens.size['large-md'] },
+                  }),
+                ]}
+              >
                 Kanban Board
               </Typography>
 
