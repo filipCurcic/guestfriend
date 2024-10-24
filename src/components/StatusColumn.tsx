@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Stack } from './common/Stack';
 import { ColumnHeader } from './ColumnHeader';
-import { TicketsContainer } from './TicketsContainer';
+import { TicketsContainer } from './Ticket/TicketsContainer';
 
 import { StatusEnum, type Ticket } from '../types/SharedTypes';
 
@@ -22,7 +22,7 @@ export const StatusColumn: FC<StatusColumnProps> = ({ status, tickets }) => {
   const { statusData, setNodeRef, isOver } = useStatusColumn(status);
   const { searchTerm } = useSearchContext();
 
-  const { headerColor, title } = statusData;
+  const { headerColor, title, ticketColor, containerColor } = statusData;
 
   const filteredTickets = tickets.filter((ticket) =>
     ticket.content.toLowerCase().includes(searchTerm.toLowerCase().trim())
@@ -49,8 +49,8 @@ export const StatusColumn: FC<StatusColumnProps> = ({ status, tickets }) => {
           numberOfTickets={numberOfTickets}
         />
         <TicketsContainer
-          ticketColor={statusData.ticketColor}
-          containerColor={statusData.containerColor}
+          ticketColor={ticketColor}
+          containerColor={containerColor}
           tickets={filteredTickets}
           status={status}
           isOver={isOver}

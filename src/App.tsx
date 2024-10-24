@@ -7,6 +7,8 @@ import { useTokens } from './theme/tokens';
 import { DndContext, pointerWithin } from '@dnd-kit/core';
 
 import { useDragAndDrop } from './hooks/useDragAndDrop';
+import { Typography } from './components/common/Typography';
+import { mapResponsiveValues } from './responsive/mapResponsiveValues';
 
 function App() {
   const tokens = useTokens();
@@ -17,18 +19,23 @@ function App() {
     <Stack
       center
       css={{
-        width: '100vw',
         marginTop: tokens.space['large-sm'],
       }}
     >
       <Stack
         vertical
         gap="small-md"
-        css={{
-          width: '100%',
-          height: '100%',
-          background: tokens.colors.white,
-        }}
+        css={[
+          {
+            height: '100%',
+            background: tokens.colors.white,
+          },
+          mapResponsiveValues({
+            sm: { width: '100%' },
+            md: { width: '70%' },
+            lg: { width: '60%' },
+          }),
+        ]}
       >
         <DndContext
           sensors={sensors}
@@ -36,8 +43,18 @@ function App() {
           onDragStart={handleDragStart}
           collisionDetection={pointerWithin}
         >
-          <SearchBar />
-          <Board activeItem={activeItem} />
+          <header>
+            <Stack horizontal justify="center">
+              <Typography as="h1" color="black" css={{ margin: '0 auto' }}>
+                Kanban Board
+              </Typography>
+
+              <SearchBar />
+            </Stack>
+          </header>
+          <main>
+            <Board activeItem={activeItem} />
+          </main>
         </DndContext>
       </Stack>
     </Stack>

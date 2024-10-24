@@ -6,8 +6,7 @@ import {
   useSensor,
   useSensors,
 } from '@dnd-kit/core';
-import { PointerSensor, KeyboardSensor } from '@dnd-kit/core';
-import { sortableKeyboardCoordinates } from '@dnd-kit/sortable';
+import { PointerSensor } from '@dnd-kit/core';
 import { type ActiveItem } from '../types/SharedTypes';
 import { useTicketContext } from '../context/TicketContext';
 
@@ -29,9 +28,6 @@ export const useDragAndDrop = (
         delay,
         tolerance,
       },
-    }),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
     })
   );
 

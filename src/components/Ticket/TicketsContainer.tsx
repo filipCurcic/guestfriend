@@ -1,11 +1,11 @@
 import { FC, forwardRef } from 'react';
 
-import { Stack } from './common/Stack';
-
-import { useTokens } from '../theme/tokens';
-
-import { type Ticket, StatusEnum, Color } from '../types/SharedTypes';
+import { Stack } from '../common/Stack';
 import { TicketItem } from './TicketItem';
+
+import { useTokens } from '../../theme/tokens';
+
+import { type Ticket, StatusEnum, Color } from '../../types/SharedTypes';
 
 type TicketsContainerProps = {
   status: StatusEnum;
@@ -36,6 +36,8 @@ export const TicketsContainer: FC<TicketsContainerProps> = forwardRef<
       align="center"
       padding="small-lg"
       gap="small-lg"
+      aria-live="polite"
+      role="list"
     >
       {tickets.map((ticket) => (
         <TicketItem

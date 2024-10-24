@@ -14,11 +14,7 @@ type SearchContextType = {
   clearSearch: () => void;
 };
 
-export const SearchContext = createContext<SearchContextType>({
-  searchTerm: '',
-  setSearchTerm: () => {},
-  clearSearch: () => {},
-});
+export const SearchContext = createContext<SearchContextType | null>(null);
 
 export const useSearchContext = () => {
   const context = useContext(SearchContext);

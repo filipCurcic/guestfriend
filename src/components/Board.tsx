@@ -1,6 +1,6 @@
 import { Stack } from './common/Stack';
 import { StatusColumn } from './StatusColumn';
-import { TicketItem } from './TicketItem';
+import { TicketItem } from './Ticket/TicketItem';
 
 import { useTicketContext } from '../context/TicketContext';
 

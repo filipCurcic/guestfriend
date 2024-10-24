@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+
 import localStorageService from '../util/localStorageService';
 
 export const useLocalStorage = <T>(key: string, initialValue: T) => {

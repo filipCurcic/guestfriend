@@ -23,7 +23,6 @@ export type TypographyProps<C extends React.ElementType> =
   PolymorphicComponentPropWithRef<
     C,
     {
-      size?: keyof Tokens['size'];
       color?: keyof Tokens['colors'];
       emphasis?: keyof Tokens['emphasis'];
     }

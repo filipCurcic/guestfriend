@@ -1,6 +1,8 @@
 import { ChangeEvent } from 'react';
-import { useTokens } from '../theme/tokens';
+
 import { useSearchContext } from '../context/SearchContext';
+
+import { useTokens } from '../theme/tokens';
 
 export const SearchBar = () => {
   const { setSearchTerm } = useSearchContext();
@@ -13,15 +15,16 @@ export const SearchBar = () => {
 
   return (
     <input
-      type="text"
+      type="search"
       placeholder="Search.."
+      aria-label="Search"
       onChange={handleChange}
       css={{
         width: '33%',
-        alignSelf: 'flex-end',
         padding: tokens.space['small-xs'],
         border: 'none',
         borderBottom: `1px solid ${tokens.colors.gray200}`,
+        marginLeft: 'auto',
       }}
     />
   );

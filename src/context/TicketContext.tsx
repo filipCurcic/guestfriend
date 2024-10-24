@@ -43,14 +43,7 @@ const INITIAL_COLUMNS = {
   },
 };
 
-export const TicketContext = createContext<TicketContextType>({
-  tickets: {},
-  columns: INITIAL_COLUMNS,
-  addTicket: () => {},
-  removeTicket: () => {},
-  updateTicket: () => {},
-  moveTicket: () => {},
-});
+export const TicketContext = createContext<TicketContextType | null>(null);
 
 export const useTicketContext = () => {
   const context = useContext(TicketContext);

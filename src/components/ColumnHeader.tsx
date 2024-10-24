@@ -32,13 +32,13 @@ export const ColumnHeader = ({
     <Stack
       vertical
       css={{
+        position: 'relative',
         backgroundColor: tokens.colors[backgroundColor],
       }}
       padding="small-sm"
     >
-      <Stack horizontal align="center">
+      <Stack align="center">
         <Typography
-          size="large-sm"
           css={[
             {
               flexGrow: 1,
@@ -50,22 +50,43 @@ export const ColumnHeader = ({
               lg: { fontSize: `${tokens.size['large-sm']}` },
             }),
           ]}
-          as="h5"
+          as="h2"
+          aria-label={title}
         >
           {title}
         </Typography>
         <Button
-          css={mapResponsiveValues({
-            sm: { fontSize: `${tokens.size['large-xs']}` },
-            md: { fontSize: `${tokens.size['large-md']}` },
-            lg: { fontSize: `${tokens.size['large-lg']}` },
-          })}
+          css={[
+            { position: 'absolute' },
+            mapResponsiveValues({
+              sm: {
+                fontSize: `${tokens.size['large-xs']}`,
+                right: 0,
+              },
+              md: { fontSize: `${tokens.size['large-md']}`, right: 0 },
+              lg: {
+                fontSize: `${tokens.size['large-md']}`,
+                right: tokens.space['small-sm'],
+              },
+            }),
+          ]}
           onClick={handleNewTicket}
+          aria-label="Add new ticket"
         >
           +
         </Button>
       </Stack>
-      <Stack center>({numberOfTickets})</Stack>
+      <Stack
+        aria-live="polite"
+        center
+        css={mapResponsiveValues({
+          sm: { fontSize: `${tokens.size['small-md']}` },
+          md: { fontSize: `${tokens.size['small-lg']}` },
+          lg: { fontSize: `${tokens.size['large-xs']}` },
+        })}
+      >
+        ({numberOfTickets})
+      </Stack>
     </Stack>
   );
 };
