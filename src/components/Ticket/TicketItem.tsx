@@ -1,6 +1,5 @@
 import { FC, useRef, ChangeEvent, useState, useEffect } from 'react';
 
-import { Stack } from './../common/Stack';
 import { Typography } from '../common/Typography';
 import { TicketItemButton } from './TicketItemButton';
 import { TicketItemTextArea } from './TicketItemTextArea';
@@ -11,13 +10,11 @@ import {
   type Color,
 } from '../../types/SharedTypes';
 
-import { tokens } from '../../theme/base';
 import { useTicketContext } from '../../context/TicketContext';
 import { useTicketState } from '../../hooks/useTicketState';
-import { mapResponsiveValues } from '../../responsive/mapResponsiveValues';
 
 import { useSortable } from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
+import { StyledStackItem } from '../../ui/Ticket';
 
 export type TicketItemProps = {
   backgroundColor: Color;
@@ -91,45 +88,20 @@ export const TicketItem: FC<TicketItemProps> = ({
   };
 
   return (
-    <Stack
+    <StyledStackItem
       ref={setNodeRef}
       {...attributes}
       {...listeners}
-      vertical
+      direction="vertical"
       onMouseEnter={() => handleHoverEffects('enter')}
       onMouseLeave={() => handleHoverEffects('leave')}
       onDoubleClick={handleDoubleClick}
       onKeyDown={handleKeyDown}
-      role="listitem"
+      backgroundColor={backgroundColor}
+      transform={transform}
+      transition={transition}
       tabIndex={0}
-      css={[
-        {
-          backgroundColor: tokens.colors[backgroundColor],
-          cursor: 'pointer',
-          width: '100%',
-          padding: tokens.space['large-md'],
-          boxShadow: tokens.elevation.sm,
-          position: 'relative',
-          wordBreak: 'break-word',
-          overflowWrap: 'break-word',
-          transform: CSS.Transform.toString(transform),
-          transition,
-          ':hover': {
-            boxShadow: tokens.elevation.md,
-          },
-        },
-        mapResponsiveValues({
-          sm: {
-            fontSize: `${tokens.size['small-md']}`,
-            padding: tokens.space['small-xs'],
-          },
-          md: {
-            fontSize: `${tokens.size['large-xs']}`,
-            padding: tokens.space['large-md'],
-          },
-          lg: { fontSize: `${tokens.size['small-lg']}` },
-        }),
-      ]}
+      role="listitem"
     >
       {isHovered && <TicketItemButton onDelete={handleDelete} />}
 
@@ -142,6 +114,6 @@ export const TicketItem: FC<TicketItemProps> = ({
       ) : (
         <Typography css={{ textAlign: 'center' }}>{content}</Typography>
       )}
-    </Stack>
+    </StyledStackItem>
   );
 };

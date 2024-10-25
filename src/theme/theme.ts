@@ -49,6 +49,7 @@ export const tokens = {
     red400: '#E66C78',
     red200: '#F4C2C3',
     white: '#fff',
+    black: '#000',
   },
 
   transition: {
@@ -57,4 +58,17 @@ export const tokens = {
     fast: '0.4s',
     fastest: '0.2s',
   },
+} as const;
+
+export interface CustomTheme {
+  tokens: typeof tokens;
+}
+
+export const theme: CustomTheme = {
+  tokens,
 };
+
+declare module '@emotion/react' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
+  export interface Theme extends CustomTheme {}
+}

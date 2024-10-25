@@ -1,17 +1,18 @@
 import { FC } from 'react';
-import { Stack } from './common/Stack';
-import { ColumnHeader } from './ColumnHeader';
-import { TicketsContainer } from './Ticket/TicketsContainer';
+import { Stack } from '../common/Stack';
 
-import { StatusEnum, type Ticket } from '../types/SharedTypes';
+import { TicketsContainer } from '../Ticket/TicketsContainer';
+import { ColumnHeader } from '../ColumnHeader/ColumnHeader';
+
+import { StatusEnum, type Ticket } from '../../types/SharedTypes';
+
+import { useStatusColumn } from '../../hooks/useStatusColumn';
+import { useSearchContext } from '../../context/SearchContext';
 
 import {
   SortableContext,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
-
-import { useStatusColumn } from '../hooks/useStatusColumn';
-import { useSearchContext } from '../context/SearchContext';
 
 type StatusColumnProps = {
   status: StatusEnum;
@@ -37,7 +38,7 @@ export const StatusColumn: FC<StatusColumnProps> = ({ status, tickets }) => {
       id={status}
     >
       <Stack
-        vertical
+        direction="vertical"
         gap="small-xs"
         css={{ flexBasis: '100%' }}
         ref={setNodeRef}

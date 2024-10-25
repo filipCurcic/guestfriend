@@ -1,8 +1,6 @@
 import { ChangeEvent, FC } from 'react';
 
-import { useTokens } from '../../theme/tokens';
-
-import TextareaAutosize from 'react-textarea-autosize';
+import { StyledTextarea } from '../../ui/Ticket';
 
 type TicketItemTextAreaProps = {
   onBlur: () => void;
@@ -15,28 +13,14 @@ export const TicketItemTextArea: FC<TicketItemTextAreaProps> = ({
   onBlur,
   onChange,
 }) => {
-  const tokens = useTokens();
   return (
-    <TextareaAutosize
+    <StyledTextarea
       aria-label="Edit ticket content"
       rows={1}
       onBlur={onBlur}
       autoFocus
       value={value}
       onChange={onChange}
-      css={{
-        padding: 0,
-        boxSizing: 'border-box',
-        border: 'none',
-        background: 'transparent',
-        resize: 'none',
-        color: tokens.colors.white,
-        outline: 'none',
-        textAlign: 'center',
-        '& fieldset': {
-          border: 'none',
-        },
-      }}
     />
   );
 };

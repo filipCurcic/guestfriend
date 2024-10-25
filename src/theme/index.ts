@@ -1,1 +1,1 @@
-export { tokens as base } from './base';
+export * from './theme';

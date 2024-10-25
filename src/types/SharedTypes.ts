@@ -1,4 +1,4 @@
-import { tokens } from '../theme/base';
+import { tokens } from '../theme';
 
 export enum StatusEnum {
   TO_DO = 'TO_DO',

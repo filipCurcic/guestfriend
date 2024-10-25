@@ -1,10 +1,14 @@
-import { Stack } from './common/Stack';
-import { StatusColumn } from './StatusColumn';
-import { TicketItem } from './Ticket/TicketItem';
+import { Stack } from './../common/Stack';
+import { StatusColumn } from '../Column/StatusColumn';
+import { TicketItem } from './../Ticket/TicketItem';
 
-import { useTicketContext } from '../context/TicketContext';
+import { useTicketContext } from '../../context/TicketContext';
 
-import { type ActiveItem, type Color, StatusEnum } from '../types/SharedTypes';
+import {
+  type ActiveItem,
+  type Color,
+  StatusEnum,
+} from '../../types/SharedTypes';
 import { DragOverlay } from '@dnd-kit/core';
 import { FC } from 'react';
 
@@ -15,7 +19,7 @@ type BoardProps = {
 export const Board: FC<BoardProps> = ({ activeItem }) => {
   const { tickets, columns } = useTicketContext();
   return (
-    <Stack horizontal gap={'small-xs'}>
+    <Stack direction="horizontal" gap={'small-xs'}>
       {Object.keys(columns).map((column) => (
         <StatusColumn
           status={column as StatusEnum}

@@ -1,11 +1,9 @@
-import { FC, forwardRef } from 'react';
+import { FC } from 'react';
 
-import { Stack } from '../common/Stack';
 import { TicketItem } from './TicketItem';
 
-import { useTokens } from '../../theme/tokens';
-
 import { type Ticket, StatusEnum, Color } from '../../types/SharedTypes';
+import { StyledTicketsContainer } from '../../ui/Ticket';
 
 type TicketsContainerProps = {
   status: StatusEnum;
@@ -15,26 +13,19 @@ type TicketsContainerProps = {
   containerColor: Color;
 };
 
-export const TicketsContainer: FC<TicketsContainerProps> = forwardRef<
-  HTMLDivElement,
-  TicketsContainerProps
->(({ ticketColor, containerColor, tickets, status, isOver }, ref) => {
-  const tokens = useTokens();
-
+export const TicketsContainer: FC<TicketsContainerProps> = ({
+  ticketColor,
+  containerColor,
+  tickets,
+  status,
+  isOver,
+}) => {
   return (
-    <Stack
-      ref={ref}
-      vertical
-      css={{
-        width: '100%',
-        backgroundColor: tokens.colors[containerColor],
-        minHeight: '450px',
-        maxHeight: '450px',
-        outline: isOver ? `solid ${tokens.colors.gray400}` : 'none',
-        overflowY: 'scroll',
-      }}
+    <StyledTicketsContainer
+      direction="vertical"
+      containerColor={containerColor}
+      isOver={isOver}
       align="center"
-      padding="small-lg"
       gap="small-lg"
       aria-live="polite"
       role="list"
@@ -48,6 +39,6 @@ export const TicketsContainer: FC<TicketsContainerProps> = forwardRef<
           status={status}
         />
       ))}
-    </Stack>
+    </StyledTicketsContainer>
   );
-});
+};

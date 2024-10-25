@@ -1,43 +1,13 @@
-import { ForwardedRef, forwardRef } from 'react';
-import { useTokens } from '../../../theme/tokens';
+import { forwardRef } from 'react';
 import { type StackProps } from './Stack.types';
+import { StyledStack } from '../../../ui/Stack';
 
-const Stack = forwardRef(
-  (
-    {
-      vertical,
-      horizontal,
-      justify = 'start',
-      align = 'stretch',
-      gap,
-      center,
-      padding,
-      children,
-      ...props
-    }: StackProps,
-    ref: ForwardedRef<HTMLDivElement>
-  ) => {
-    const tokens = useTokens();
+const Stack = forwardRef<HTMLDivElement, StackProps>(
+  ({ children, ...props }, ref) => {
     return (
-      <div
-        ref={ref}
-        css={{
-          display: 'flex',
-          ...(vertical && { flexDirection: 'column' }),
-          ...(horizontal && { flexDirection: 'row' }),
-          ...(center
-            ? {
-                alignItems: 'center',
-                justifyContent: 'center',
-              }
-            : { alignItems: align, justifyContent: justify }),
-          ...(gap && { gap: tokens.space[gap] }),
-          ...(padding && { padding: tokens.space[padding] }),
-        }}
-        {...props}
-      >
+      <StyledStack ref={ref} {...props}>
         {children}
-      </div>
+      </StyledStack>
     );
   }
 );

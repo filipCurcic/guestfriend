@@ -1,29 +1,14 @@
-import { ElementType } from 'react';
+import { ElementType, FC } from 'react';
 import { type TypographyProps } from './Typography.types';
-import { useTokens } from '../../../theme/tokens';
+import { StyledTypography } from '../../../ui/Typography';
 
-const Typography = <C extends ElementType = 'p'>({
-  as,
-  color,
-  emphasis,
-  children,
-  ...props
-}: TypographyProps<C>) => {
-  const Component = as || 'p';
-  const tokens = useTokens();
-  return (
-    <Component
-      css={{
-        margin: 0,
-        color: tokens.colors.white,
-        ...(color && { color: tokens.colors[color] }),
-        ...(emphasis && { opacity: tokens.emphasis[emphasis] }),
-      }}
-      {...props}
-    >
-      {children}
-    </Component>
-  );
+type TypographyComponent = typeof StyledTypography & {
+  <C extends ElementType = 'p'>(
+    props: { as?: C } & TypographyProps &
+      Omit<React.ComponentPropsWithoutRef<C>, keyof TypographyProps>
+  ): FC;
 };
+
+const Typography = StyledTypography as TypographyComponent;
 
 export { Typography };

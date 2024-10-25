@@ -1,73 +1,42 @@
-import { Stack } from './components/common/Stack';
-import { Board } from './components/Board';
-import { SearchBar } from './components/SearchBar';
-
-import { useTokens } from './theme/tokens';
+import { SearchBar } from './components/Search/SearchBar';
+import { Board } from './components/Board/Board';
 
 import { DndContext, pointerWithin } from '@dnd-kit/core';
 
 import { useDragAndDrop } from './hooks/useDragAndDrop';
-import { Typography } from './components/common/Typography';
-import { mapResponsiveValues } from './responsive/mapResponsiveValues';
+import {
+  StyledAppContainer,
+  StyledAppHeader,
+  StyledHeaderTitle,
+  StyledInnerContainer,
+} from './ui/App';
 
 function App() {
-  const tokens = useTokens();
   const { activeItem, sensors, handleDragStart, handleDragEnd } =
     useDragAndDrop(100, 5);
 
   return (
-    <Stack
-      center
-      css={{
-        marginTop: tokens.space['large-sm'],
-      }}
-    >
-      <Stack
-        vertical
-        gap="small-md"
-        css={[
-          {
-            height: '100%',
-            background: tokens.colors.white,
-          },
-          mapResponsiveValues({
-            sm: { width: '100%' },
-            md: { width: '70%' },
-            lg: { width: '60%' },
-          }),
-        ]}
-      >
+    <StyledAppContainer center>
+      <StyledInnerContainer direction="vertical" gap="small-md">
         <DndContext
           sensors={sensors}
           onDragEnd={handleDragEnd}
           onDragStart={handleDragStart}
           collisionDetection={pointerWithin}
         >
-          <header>
-            <Stack horizontal justify="space-between">
-              <Typography
-                as="h1"
-                color="black"
-                css={[
-                  mapResponsiveValues({
-                    sm: { fontSize: tokens.size['large-xs'] },
-                    md: { fontSize: tokens.size['large-sm'] },
-                    lg: { fontSize: tokens.size['large-md'] },
-                  }),
-                ]}
-              >
-                Kanban Board
-              </Typography>
+          <StyledAppHeader>
+            <StyledHeaderTitle as="h1" color="black">
+              Kanban Board
+            </StyledHeaderTitle>
 
-              <SearchBar />
-            </Stack>
-          </header>
+            <SearchBar />
+          </StyledAppHeader>
           <main>
             <Board activeItem={activeItem} />
           </main>
         </DndContext>
-      </Stack>
-    </Stack>
+      </StyledInnerContainer>
+    </StyledAppContainer>
   );
 }
 
