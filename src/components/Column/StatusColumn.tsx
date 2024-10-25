@@ -26,7 +26,7 @@ export const StatusColumn: FC<StatusColumnProps> = ({ status, tickets }) => {
 
   const { headerColor, title, ticketColor, containerColor } = statusData;
 
-  const numberOfTickets = tickets.length;
+  const numberOfTickets = filteredTickets.length;
 
   return (
     <SortableContext

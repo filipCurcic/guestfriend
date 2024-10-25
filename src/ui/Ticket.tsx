@@ -19,8 +19,6 @@ export const StyledStackItem = styled(Stack)<
   flex-direction: ${({ direction }) =>
     direction === 'vertical' ? 'column' : 'row'};
   width: 100%;
-  word-break: break-word;
-  overflow-wrap: break-word;
   cursor: pointer;
   position: relative;
 
@@ -128,5 +126,8 @@ export const StyledTicketContent = styled(Typography)<{ hasContent: boolean }>`
   ${({ hasContent }) => `
     opacity: ${hasContent ? 1 : '0.5'};
     text-align: center;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    max-height: 200px;
   `}
 `;
