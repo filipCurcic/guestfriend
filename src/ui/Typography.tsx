@@ -3,17 +3,9 @@ import { TypographyProps } from '../components/common/Typography/Typography.type
 
 export const StyledTypography = styled('p')<TypographyProps>`
   margin: 0;
-  color: ${({ theme }) => theme.tokens.colors.white};
-
   ${({ color, theme }) =>
     color &&
     `
-    color: ${theme.tokens.colors[color]};
-  `}
-
-  ${({ emphasis, theme }) =>
-    emphasis &&
-    `
-    opacity: ${theme.tokens.emphasis[emphasis]};
+    color:  ${color ? theme.tokens.colors[color] : theme.tokens.colors.white};
   `}
 `;

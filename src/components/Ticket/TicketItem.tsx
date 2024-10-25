@@ -100,9 +100,14 @@ export const TicketItem: FC<TicketItemProps> = ({
       transition={transition}
       tabIndex={0}
       role="listitem"
+      data-testid={id}
     >
       {isHovered && (
-        <StyledTicketButton onClick={handleDelete} aria-label={'Delete ticket'}>
+        <StyledTicketButton
+          onClick={handleDelete}
+          aria-label={'Delete ticket'}
+          data-testid={`remove-${status}`}
+        >
           x
         </StyledTicketButton>
       )}
@@ -112,6 +117,7 @@ export const TicketItem: FC<TicketItemProps> = ({
           onBlur={handleBlur}
           value={editedContent}
           onChange={handleChange}
+          id={id}
         />
       ) : (
         <StyledTicketContent hasContent={!!content}>
