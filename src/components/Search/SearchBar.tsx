@@ -18,6 +18,7 @@ export const SearchBar: FC = () => {
       placeholder="Search.."
       aria-label="Search"
       onChange={handleChange}
+      data-testid="search"
     />
   );
 };

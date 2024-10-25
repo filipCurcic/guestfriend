@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { Stack } from './../common/Stack';
 
 import { type Color, StatusEnum } from '../../types/SharedTypes';
@@ -9,7 +10,8 @@ import {
   StyledTicketCountStack,
   StyledTitleTypography,
 } from '../../ui/ColumnHeader';
-import { FC } from 'react';
+
+import { v4 as uuidv4 } from 'uuid';
 
 type ColumnHeaderProps = {
   title: string;
@@ -26,11 +28,15 @@ export const ColumnHeader: FC<ColumnHeaderProps> = ({
   const { addTicket } = useTicketContext();
 
   const handleNewTicket = () => {
-    addTicket('', status, crypto.randomUUID());
+    addTicket('', status, uuidv4());
   };
 
   return (
-    <StyledColumnHeader direction="vertical" backgroundColor={backgroundColor}>
+    <StyledColumnHeader
+      direction="vertical"
+      backgroundColor={backgroundColor}
+      data-testid={`columnHeader-${status}`}
+    >
       <Stack align="center">
         <StyledTitleTypography as="h2" aria-label={title}>
           {title}
@@ -38,6 +44,7 @@ export const ColumnHeader: FC<ColumnHeaderProps> = ({
         <StyledColumnHeaderButton
           onClick={handleNewTicket}
           aria-label="Add new ticket"
+          data-testid={`add-${status}`}
         >
           +
         </StyledColumnHeaderButton>

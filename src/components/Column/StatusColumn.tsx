@@ -39,6 +39,7 @@ export const StatusColumn: FC<StatusColumnProps> = ({ status, tickets }) => {
         gap="small-xs"
         css={{ flexBasis: '100%' }}
         ref={setNodeRef}
+        data-testid={`column-${status}`}
       >
         <ColumnHeader
           backgroundColor={headerColor}
