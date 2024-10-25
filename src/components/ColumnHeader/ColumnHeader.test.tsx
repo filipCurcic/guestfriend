@@ -1,19 +1,14 @@
 import { screen, fireEvent } from '@testing-library/react';
+
 import { ColumnHeader } from './ColumnHeader';
-import { useTicketContext } from '../../context/TicketContext';
-import '@testing-library/jest-dom';
-import { renderWithProviders } from '../../util/testUtils';
+
+import { renderWithProviders, setupTicketContext } from '../../util/testUtils';
+
 import { StatusEnum } from '../../types/SharedTypes';
 
 jest.mock('../../context/TicketContext');
 
 const mockAddTicket = jest.fn();
-
-const mockContextValue = {
-  addTicket: mockAddTicket,
-};
-
-(useTicketContext as jest.Mock).mockReturnValue(mockContextValue);
 
 const renderColumnHeader = (props = {}) => {
   return renderWithProviders(
@@ -29,6 +24,7 @@ const renderColumnHeader = (props = {}) => {
 
 describe('ColumnHeader Component', () => {
   beforeEach(() => {
+    setupTicketContext({ addTicket: mockAddTicket });
     renderColumnHeader();
   });
 

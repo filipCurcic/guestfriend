@@ -1,21 +1,19 @@
 import { fireEvent, screen } from '@testing-library/react';
+
 import { SearchBar } from './SearchBar';
-import { useSearchContext } from '../../context/SearchContext';
-import '@testing-library/jest-dom';
-import { renderWithProviders } from '../../util/testUtils';
+
+import { renderWithProviders, setupSearchContext } from '../../util/testUtils';
 
 jest.mock('../../context/SearchContext');
 
 const mockSetSearchTerm = jest.fn();
+
 const renderSearch = () =>
   renderWithProviders(<SearchBar />, { withDragContext: false });
 
-(useSearchContext as jest.Mock).mockReturnValue({
-  setSearchTerm: mockSetSearchTerm,
-});
-
 describe('SearchBar Component', () => {
   beforeEach(() => {
+    setupSearchContext({ setSearchTerm: mockSetSearchTerm });
     renderSearch();
   });
 

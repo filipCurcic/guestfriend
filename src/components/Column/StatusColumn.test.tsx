@@ -1,12 +1,14 @@
 import { screen } from '@testing-library/react';
+
 import { StatusColumn } from './StatusColumn';
-import { StatusEnum, Ticket } from '../../types/SharedTypes';
-import '@testing-library/jest-dom';
+
 import {
   renderWithProviders,
   setupStatusColumnHook,
   setupTicketContext,
 } from '../../util/testUtils';
+
+import { StatusEnum, Ticket } from '../../types/SharedTypes';
 
 jest.mock('../../hooks/useStatusColumn');
 jest.mock('../../context/TicketContext');

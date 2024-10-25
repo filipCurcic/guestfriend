@@ -6,8 +6,8 @@ import { StatusEnum, Ticket } from '../types/SharedTypes';
 import { theme } from '../theme';
 import { useStatusColumn } from '../hooks/useStatusColumn';
 import { useTicketContext } from '../context/TicketContext';
+import { useSearchContext } from '../context/SearchContext';
 
-// Common mock data
 export const mockTickets: Record<string, Ticket> = {
   '1': { id: '1', content: 'Test Ticket 1', status: StatusEnum.TO_DO },
   '2': { id: '2', content: 'Test Ticket 2', status: StatusEnum.IN_PROGRESS },
@@ -35,12 +35,6 @@ export const mockFilteredTickets: Ticket[] = [
   { id: '1', content: 'Test Ticket 1', status: StatusEnum.TO_DO },
   { id: '2', content: 'Test Ticket 2', status: StatusEnum.TO_DO },
 ];
-
-export const createMockFunctions = () => ({
-  mockSetNodeRef: jest.fn(),
-  mockAddTicket: jest.fn(),
-  mockSetSearchTerm: jest.fn(),
-});
 
 export const setupTicketContext = (customValue = {}) => {
   const defaultValue = {
@@ -73,12 +67,10 @@ export const setupSearchContext = (customValue = {}) => {
     setSearchTerm: jest.fn(),
   };
 
-  return {
-    useSearchContext: jest.fn().mockReturnValue({
-      ...defaultValue,
-      ...customValue,
-    }),
-  };
+  (useSearchContext as jest.Mock).mockReturnValue({
+    ...defaultValue,
+    ...customValue,
+  });
 };
 
 interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
