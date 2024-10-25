@@ -10,6 +10,21 @@ import { PointerSensor } from '@dnd-kit/core';
 import { type ActiveItem } from '../types/SharedTypes';
 import { useTicketContext } from '../context/TicketContext';
 
+/**
+ * __useDragAndDrop__
+ *
+ * dnd-kit setup hook
+ *
+ * @param delay delays the drag activation
+ * @param tolerance tolerance for the activation
+ * @returns activeItem, drag and drop sensors, dragStart and dragEnd event handling functions
+ *
+ * @example
+ * const { activeItem, sensors, handleDragStart, handleDragEnd } = useDragAndDrop(100, 5);
+ *
+ *
+ */
+
 export const useDragAndDrop = (
   delay: number,
   tolerance: number

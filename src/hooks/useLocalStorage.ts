@@ -2,6 +2,21 @@ import { useCallback, useEffect, useState } from 'react';
 
 import localStorageService from '../util/localStorageService';
 
+/**
+ * __useLocalStorage__
+ *
+ * Hook for handling state using Local Storage
+ *
+ * @param key key for the local storage item
+ * @param initialValue fallback value in case the value of the key doesn't exist
+ * @returns storedValue - stored Local Storage value and setValue - state setting function
+ *
+ * @example
+ * const [tickets, setTickets] = useLocalStorage<Record<string, Ticket>>(LocalStorageKeysEnum.TICKETS, {});
+ *
+ *
+ */
+
 export const useLocalStorage = <T>(key: string, initialValue: T) => {
   const [storedValue, setStoredValue] = useState<T>(() => {
     try {
