@@ -9,12 +9,13 @@ import { StatusEnum } from '../../types/SharedTypes'
 jest.mock('../../context/TicketContext')
 
 const mockAddTicket = jest.fn()
+const tickets = []
 
 const renderColumnHeader = (props = {}) => {
     return renderWithProviders(
         <ColumnHeader
             title="Test Column"
-            numberOfTickets={0}
+            numberOfTickets={tickets.length}
             backgroundColor="gray200"
             status={StatusEnum.TO_DO}
             {...props}
@@ -29,18 +30,18 @@ describe('ColumnHeader Component', () => {
     })
 
     it('should render the column title', () => {
-        const titleElement = screen.getByTestId('columnHeader-TO_DO')
+        const titleElement = screen.getByText('Test Column')
         expect(titleElement).toBeInTheDocument()
         expect(titleElement).toHaveTextContent('Test Column')
     })
 
     it('should render the ticket count', () => {
-        const ticketCountElement = screen.getByText('(0)')
+        const ticketCountElement = screen.getByText(`(${tickets.length})`)
         expect(ticketCountElement).toBeInTheDocument()
     })
 
     it('should call addTicket when the button is clicked', () => {
-        const buttonElement = screen.getByTestId('add-TO_DO')
+        const buttonElement = screen.getByLabelText('Add new ticket')
         fireEvent.click(buttonElement)
         expect(mockAddTicket).toHaveBeenCalledTimes(1)
         expect(mockAddTicket).toHaveBeenCalledWith(
@@ -51,7 +52,7 @@ describe('ColumnHeader Component', () => {
     })
 
     it('should render the button for adding new tickets', () => {
-        const buttonElement = screen.getByTestId('add-TO_DO')
+        const buttonElement = screen.getByLabelText('Add new ticket')
         expect(buttonElement).toBeInTheDocument()
         expect(buttonElement).toHaveTextContent('+')
     })

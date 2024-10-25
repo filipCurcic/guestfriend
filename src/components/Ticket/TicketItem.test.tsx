@@ -47,7 +47,7 @@ describe('TicketItem Component', () => {
         renderTicketItem()
         const ticketItem = screen.getByTestId('1')
         fireEvent.mouseEnter(ticketItem)
-        const deleteButton = screen.getByTestId(`remove-${StatusEnum.TO_DO}`)
+        const deleteButton = screen.getByLabelText(`Delete ticket`)
         expect(deleteButton).toBeInTheDocument()
     })
 
@@ -55,7 +55,7 @@ describe('TicketItem Component', () => {
         renderTicketItem()
         const ticketItem = screen.getByTestId('1')
         fireEvent.mouseEnter(ticketItem)
-        const deleteButton = screen.getByTestId(`remove-${StatusEnum.TO_DO}`)
+        const deleteButton = screen.getByLabelText(`Delete ticket`)
         fireEvent.click(deleteButton)
         expect(mockRemoveTicket).toHaveBeenCalledTimes(1)
         expect(mockRemoveTicket).toHaveBeenCalledWith(
@@ -70,7 +70,7 @@ describe('TicketItem Component', () => {
         const contentElement = screen.getByText('Test Content')
         fireEvent.doubleClick(contentElement)
 
-        const editableTextArea = screen.getByTestId(`edit-1`)
+        const editableTextArea = screen.getByLabelText(`Edit ticket content`)
         expect(editableTextArea).toBeInTheDocument()
     })
 

@@ -6,11 +6,9 @@ type TicketItemTextAreaProps = {
     onBlur: () => void
     value: string
     onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void
-    id: string
 }
 
 export const TicketItemTextArea: FC<TicketItemTextAreaProps> = ({
-    id,
     value,
     onBlur,
     onChange,
@@ -23,7 +21,6 @@ export const TicketItemTextArea: FC<TicketItemTextAreaProps> = ({
             autoFocus
             value={value}
             onChange={onChange}
-            data-testid={`edit-${id}`}
         />
     )
 }

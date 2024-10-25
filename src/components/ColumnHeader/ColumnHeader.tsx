@@ -35,7 +35,6 @@ export const ColumnHeader: FC<ColumnHeaderProps> = ({
         <StyledColumnHeader
             direction="vertical"
             backgroundColor={backgroundColor}
-            data-testid={`columnHeader-${status}`}
         >
             <Stack align="center">
                 <StyledTitleTypography as="h2" aria-label={title}>
@@ -44,7 +43,6 @@ export const ColumnHeader: FC<ColumnHeaderProps> = ({
                 <StyledColumnHeaderButton
                     onClick={handleNewTicket}
                     aria-label="Add new ticket"
-                    data-testid={`add-${status}`}
                 >
                     +
                 </StyledColumnHeaderButton>

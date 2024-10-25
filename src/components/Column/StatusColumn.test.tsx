@@ -38,12 +38,14 @@ describe('StatusColumn Component', () => {
     })
 
     it('should render the column title', () => {
-        const column = screen.getByTestId('column-TO_DO')
+        const column = screen.getByText('To Do')
         expect(column).toBeInTheDocument()
     })
 
     it('should render the correct number of tickets in the TicketsContainer', () => {
-        const ticketsContainerElement = screen.getByText('(2)')
+        const ticketsContainerElement = screen.getByText(
+            `(${mockFilteredTickets.length})`
+        )
         expect(ticketsContainerElement).toBeInTheDocument()
     })
 

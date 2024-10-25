@@ -18,7 +18,7 @@ describe('SearchBar Component', () => {
     })
 
     it('should render the search input', () => {
-        const inputElement = screen.getByTestId('search')
+        const inputElement = screen.getByLabelText('Search')
         expect(inputElement).toBeInTheDocument()
         expect(inputElement).toHaveAttribute('type', 'search')
         expect(inputElement).toHaveAttribute('placeholder', 'Search..')
