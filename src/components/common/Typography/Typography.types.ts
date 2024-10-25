@@ -1,5 +1,5 @@
 import { CustomTheme } from '../../../theme';
-import { Color } from '../../../types/SharedTypes';
+import { type Color } from '../../../types/SharedTypes';
 
 export type TypographyProps = {
   color?: Color;

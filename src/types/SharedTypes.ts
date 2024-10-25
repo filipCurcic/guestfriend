@@ -25,12 +25,6 @@ export type Column = {
   };
 };
 
-export type Board = {
-  tickets: { [key: string]: Ticket };
-  columns: Column;
-  search: string;
-};
-
 export type Color = keyof typeof tokens.colors;
 
 export type Status = {

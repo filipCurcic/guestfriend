@@ -7,7 +7,6 @@ import { ColumnHeader } from '../ColumnHeader/ColumnHeader';
 import { StatusEnum, type Ticket } from '../../types/SharedTypes';
 
 import { useStatusColumn } from '../../hooks/useStatusColumn';
-import { useSearchContext } from '../../context/SearchContext';
 
 import {
   SortableContext,
@@ -20,14 +19,12 @@ type StatusColumnProps = {
 };
 
 export const StatusColumn: FC<StatusColumnProps> = ({ status, tickets }) => {
-  const { statusData, setNodeRef, isOver } = useStatusColumn(status);
-  const { searchTerm } = useSearchContext();
+  const { filteredTickets, statusData, setNodeRef, isOver } = useStatusColumn(
+    status,
+    tickets
+  );
 
   const { headerColor, title, ticketColor, containerColor } = statusData;
-
-  const filteredTickets = tickets.filter((ticket) =>
-    ticket.content.toLowerCase().includes(searchTerm.toLowerCase().trim())
-  );
 
   const numberOfTickets = tickets.length;
 

@@ -1,7 +1,5 @@
-import { FC, useRef, ChangeEvent, useState, useEffect } from 'react';
+import { FC, useRef, ChangeEvent, useState } from 'react';
 
-import { Typography } from '../common/Typography';
-import { TicketItemButton } from './TicketItemButton';
 import { TicketItemTextArea } from './TicketItemTextArea';
 
 import {
@@ -14,7 +12,11 @@ import { useTicketContext } from '../../context/TicketContext';
 import { useTicketState } from '../../hooks/useTicketState';
 
 import { useSortable } from '@dnd-kit/sortable';
-import { StyledStackItem } from '../../ui/Ticket';
+import {
+  StyledStackItem,
+  StyledTicketButton,
+  StyledTicketContent,
+} from '../../ui/Ticket';
 
 export type TicketItemProps = {
   backgroundColor: Color;
@@ -29,11 +31,7 @@ export const TicketItem: FC<TicketItemProps> = ({
   status,
   id,
 }) => {
-  const [editedContent, setEditedContent] = useState('');
-
-  useEffect(() => {
-    setEditedContent(content);
-  }, [content]);
+  const [editedContent, setEditedContent] = useState(content);
 
   const {
     isHovered,
@@ -76,14 +74,14 @@ export const TicketItem: FC<TicketItemProps> = ({
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === 'Enter' && !isContentEditable) {
+    if (e.key === 'Enter') {
       e.preventDefault();
-      handleDoubleClick();
-    }
-    if (e.key === 'Enter' && isContentEditable) {
-      e.preventDefault();
-      updateTicket(id, { content: editedContent });
-      toggleContentEditable();
+      if (isContentEditable) {
+        updateTicket(id, { content: editedContent });
+        toggleContentEditable();
+      } else {
+        handleDoubleClick();
+      }
     }
   };
 
@@ -103,7 +101,11 @@ export const TicketItem: FC<TicketItemProps> = ({
       tabIndex={0}
       role="listitem"
     >
-      {isHovered && <TicketItemButton onDelete={handleDelete} />}
+      {isHovered && (
+        <StyledTicketButton onClick={handleDelete} aria-label={'Delete ticket'}>
+          x
+        </StyledTicketButton>
+      )}
 
       {isContentEditable ? (
         <TicketItemTextArea
@@ -112,7 +114,9 @@ export const TicketItem: FC<TicketItemProps> = ({
           onChange={handleChange}
         />
       ) : (
-        <Typography css={{ textAlign: 'center' }}>{content}</Typography>
+        <StyledTicketContent hasContent={!!content}>
+          {content || 'Add content'}
+        </StyledTicketContent>
       )}
     </StyledStackItem>
   );

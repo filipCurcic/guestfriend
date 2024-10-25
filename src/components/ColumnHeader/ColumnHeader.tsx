@@ -1,6 +1,6 @@
 import { Stack } from './../common/Stack';
 
-import { Color, StatusEnum } from '../../types/SharedTypes';
+import { type Color, StatusEnum } from '../../types/SharedTypes';
 
 import { useTicketContext } from '../../context/TicketContext';
 import {
@@ -26,7 +26,7 @@ export const ColumnHeader: FC<ColumnHeaderProps> = ({
   const { addTicket } = useTicketContext();
 
   const handleNewTicket = () => {
-    addTicket(`New ${status} Ticket`, status, crypto.randomUUID());
+    addTicket('', status, crypto.randomUUID());
   };
 
   return (

@@ -2,10 +2,11 @@ import styled from '@emotion/styled';
 import { CSS, Transform } from '@dnd-kit/utilities';
 import { StackProps } from '../components/common/Stack/Stack.types';
 import { mapResponsiveValues } from '../responsive/mapResponsiveValues';
-import { Color } from '../types/SharedTypes';
+import { type Color } from '../types/SharedTypes';
 import TextareaAutosize from 'react-textarea-autosize';
 import { Button } from '../components/common/Button';
 import { Stack } from '../components/common/Stack';
+import { Typography } from '../components/common/Typography';
 
 export const StyledStackItem = styled(Stack)<
   StackProps & {
@@ -59,15 +60,15 @@ export const StyledStackItem = styled(Stack)<
   ${({ theme }) =>
     mapResponsiveValues({
       sm: {
-        fontSize: `${theme.tokens.size['small-md']}`,
-        padding: theme.tokens.space['small-xs'],
+        fontSize: theme.tokens.size['small-md'],
+        padding: theme.tokens.space['small-sm'],
       },
       md: {
-        fontSize: `${theme.tokens.size['large-xs']}`,
+        fontSize: theme.tokens.size['large-xs'],
         padding: theme.tokens.space['large-md'],
       },
       lg: {
-        fontSize: `${theme.tokens.size['small-lg']}`,
+        fontSize: theme.tokens.size['small-lg'],
       },
     })}
 `;
@@ -89,10 +90,21 @@ export const StyledTextarea = styled(TextareaAutosize)`
 
 export const StyledTicketButton = styled(Button)`
   position: absolute;
-  ${({ theme }) => `
-    top: ${theme.tokens.space['small-sm']};
-    right: ${theme.tokens.space['small-xs']};
-  `}
+  ${({ theme }) =>
+    mapResponsiveValues({
+      sm: {
+        top: theme.tokens.size['small-xs'],
+        right: theme.tokens.space['small-xs'],
+      },
+      md: {
+        top: theme.tokens.size['small-sm'],
+        right: theme.tokens.space['small-xs'],
+      },
+      lg: {
+        top: theme.tokens.space['small-sm'],
+        right: theme.tokens.space['small-xs'],
+      },
+    })}
 `;
 
 export const StyledTicketsContainer = styled(Stack)<{
@@ -100,12 +112,21 @@ export const StyledTicketsContainer = styled(Stack)<{
   containerColor: Color;
 }>`
   ${({ theme, containerColor, isOver }) => `
-    opacity: ${isOver ? '0.7' : 1};
+    opacity: ${
+      isOver ? theme.tokens.emphasis.medium : theme.tokens.emphasis.full
+    };
     width: 100%;
     background-color:  ${theme.tokens.colors[containerColor]};
     min-height: 450px;
     max-height: 450px;
     overflow-y: scroll;
     padding: ${theme.tokens.space['small-lg']};
+  `}
+`;
+
+export const StyledTicketContent = styled(Typography)<{ hasContent: boolean }>`
+  ${({ hasContent }) => `
+    opacity: ${hasContent ? 1 : '0.5'};
+    text-align: center;
   `}
 `;
