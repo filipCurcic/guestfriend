@@ -128,6 +128,7 @@ export const StyledTicketContent = styled(Typography)<{ hasContent: boolean }>`
     text-align: center;
     word-break: break-word;
     overflow-wrap: break-word;
+    overflow: scroll;
     max-height: 200px;
   `}
 `;
