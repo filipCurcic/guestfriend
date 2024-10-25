@@ -8,6 +8,18 @@ type TicketItemTextAreaProps = {
     onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void
 }
 
+/**
+ * __TicketItemTextArea__
+ *
+ * @component
+ * Editable text area component
+ *
+ * @param value content of the textarea
+ * @param onBlur function that executes after the text area loses focus
+ * @param onChange function that executes on each value change
+ *
+ */
+
 export const TicketItemTextArea: FC<TicketItemTextAreaProps> = ({
     value,
     onBlur,

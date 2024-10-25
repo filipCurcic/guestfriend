@@ -1,5 +1,20 @@
 import { useState, useCallback } from 'react'
 
+/**
+ * __useTicketState__
+ *
+ * Hook that returns isHovered and isContentEditable states and handler functions
+ *
+ *
+ * @example const {
+ *       isHovered,
+ *       isContentEditable,
+ *       handleHoverEffects,
+ *       toggleContentEditable,
+ *   } = useTicketState()
+ *
+ */
+
 export const useTicketState = () => {
     const [isHovered, setIsHovered] = useState(false)
     const [isContentEditable, setIsContentEditable] = useState(false)

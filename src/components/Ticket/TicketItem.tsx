@@ -25,6 +25,20 @@ export type TicketItemProps = {
     status: StatusEnum
 }
 
+/**
+ * __TicketItem__
+ *
+ * Component that renders the singular ticket
+ *
+ * @component
+ * @param backgroundColor background color of the ticket
+ * @param content text content of the ticket
+ * @param status status of the ticket
+ * @param id
+ *
+ *
+ */
+
 export const TicketItem: FC<TicketItemProps> = ({
     backgroundColor,
     content,

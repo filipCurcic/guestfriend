@@ -21,6 +21,18 @@ export const STATUSES: Record<StatusEnum, Status> = {
     },
 } as const
 
+/**
+ * __getStatus__
+ *
+ * Function that returns a value of the STATUSES object
+ *
+ * @param status value of StatusEnum
+ * @returns a Status object
+ *
+ * @example const statusData = getStatus(status)
+ *
+ */
+
 const getStatus = (status: StatusEnum) => {
     return STATUSES[status]
 }

@@ -13,6 +13,20 @@ type TicketsContainerProps = {
     containerColor: Color
 }
 
+/**
+ * __TicketsContainer__
+ *
+ * @component
+ * Component that renders the list of tickets
+ *
+ * @param ticketColor background color of the ticket
+ * @param containerColor background color of the container
+ * @param tickets array of tickets
+ * @param status status of the column
+ * @param isOver boolean that represents if the container is being hovered over by a dragged item
+ *
+ */
+
 export const TicketsContainer: FC<TicketsContainerProps> = ({
     ticketColor,
     containerColor,

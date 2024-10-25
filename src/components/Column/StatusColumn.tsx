@@ -15,6 +15,17 @@ type StatusColumnProps = {
     tickets: Ticket[]
 }
 
+/**
+ * __StatusColumn__
+ *
+ * @component
+ * Component that renders a column with a header and a list of draggable tickets
+ *
+ * @param status status of the column
+ * @param tickets array of tickets
+ *
+ */
+
 export const StatusColumn: FC<StatusColumnProps> = ({ status, tickets }) => {
     const { filteredTickets, statusData, setNodeRef, isOver } = useStatusColumn(
         status,

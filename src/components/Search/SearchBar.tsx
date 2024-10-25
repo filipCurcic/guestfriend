@@ -4,6 +4,14 @@ import { useSearchContext } from '../../context/SearchContext'
 
 import { StyledSearchInput } from '../../ui/SearchBar'
 
+/**
+ * __SearchBar__
+ *
+ * @component
+ * Search input component
+ *
+ */
+
 export const SearchBar: FC = () => {
     const { setSearchTerm } = useSearchContext()
 

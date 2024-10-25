@@ -19,6 +19,20 @@ type ColumnHeaderProps = {
     status: StatusEnum
     numberOfTickets: number
 }
+
+/**
+ * __ColumnHeader__
+ *
+ * @component
+ * Component that renders the header of a column, with a title and a button to add a new ticket
+ *
+ * @param title title of the header
+ * @param status status of the column
+ * @param backgroundColor background color of the header
+ * @param numberOfTickets number of tickets in the column below the header
+ *
+ */
+
 export const ColumnHeader: FC<ColumnHeaderProps> = ({
     title,
     status,

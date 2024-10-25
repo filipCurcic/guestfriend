@@ -16,6 +16,15 @@ type BoardProps = {
     activeItem?: ActiveItem
 }
 
+/**
+ * __Board__
+ *
+ * @component
+ * Component that renders the board with N amount of columns and a header with a title and a search bar
+ *
+ * @param activeItem currently dragged item
+ *
+ */
 export const Board: FC<BoardProps> = ({ activeItem }) => {
     const { tickets, columns } = useTicketContext()
     return (
