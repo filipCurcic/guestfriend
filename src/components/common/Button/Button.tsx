@@ -1,7 +1,7 @@
-import { FC, PropsWithChildren } from 'react';
+import { FC, PropsWithChildren } from 'react'
 
-import { ButtonProps } from './Button.types';
-import { StyledButton } from '../../../ui/Button';
+import { ButtonProps } from './Button.types'
+import { StyledButton } from '../../../ui/Button'
 
 /**
  * __Button__
@@ -15,6 +15,6 @@ import { StyledButton } from '../../../ui/Button';
  */
 
 const Button: FC<PropsWithChildren<ButtonProps>> = ({ children, ...props }) => {
-  return <StyledButton {...props}>{children}</StyledButton>;
-};
-export { Button };
+    return <StyledButton {...props}>{children}</StyledButton>
+}
+export { Button }

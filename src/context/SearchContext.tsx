@@ -1,65 +1,65 @@
 import {
-  createContext,
-  useCallback,
-  useContext,
-  useMemo,
-  useState,
-} from 'react';
+    createContext,
+    useCallback,
+    useContext,
+    useMemo,
+    useState,
+} from 'react'
 
-import { debounce } from '../util/debounce';
+import { debounce } from '../util/debounce'
 
 type SearchContextType = {
-  searchTerm: string;
-  setSearchTerm: (searchTerm: string) => void;
-  clearSearch: () => void;
-};
+    searchTerm: string
+    setSearchTerm: (searchTerm: string) => void
+    clearSearch: () => void
+}
 
-export const SearchContext = createContext<SearchContextType | null>(null);
+export const SearchContext = createContext<SearchContextType | null>(null)
 
 export const useSearchContext = () => {
-  const context = useContext(SearchContext);
-  if (!context) {
-    throw new Error(
-      'useSearchContext must be used within a SearchContextProvider'
-    );
-  }
-  return context;
-};
+    const context = useContext(SearchContext)
+    if (!context) {
+        throw new Error(
+            'useSearchContext must be used within a SearchContextProvider'
+        )
+    }
+    return context
+}
 
 export const SearchContextProvider = ({
-  children,
+    children,
 }: {
-  children: React.ReactNode;
+    children: React.ReactNode
 }) => {
-  const [searchTerm, setSearchTerm] = useState('');
+    const [searchTerm, setSearchTerm] = useState('')
 
-  const debouncedSetSearchTerm = debounce((term: string) => {
-    setSearchTerm(term);
-  });
+    const debouncedSetSearchTerm = debounce((term: string) => {
+        setSearchTerm(term)
+    })
 
-  const handleChange = useCallback(
-    (searchTerm: string) => {
-      debouncedSetSearchTerm(searchTerm);
-    },
-    [debouncedSetSearchTerm]
-  );
+    const handleChange = useCallback(
+        (searchTerm: string) => {
+            debouncedSetSearchTerm(searchTerm)
+        },
+        [debouncedSetSearchTerm]
+    )
 
-  const clearSearch = useCallback(() => {
-    setSearchTerm('');
-  }, []);
+    const clearSearch = useCallback(() => {
+        setSearchTerm('')
+    }, [])
 
-  const contextValue = useMemo(
-    () => ({
-      searchTerm,
-      setSearchTerm: handleChange,
-      clearSearch,
-    }),
-    [searchTerm, handleChange, clearSearch]
-  );
+    const contextValue = useMemo(
+        () => ({
+            searchTerm,
+            setSearchTerm: handleChange,
+            clearSearch,
+        }),
+        [searchTerm, handleChange, clearSearch]
+    )
 
-  return (
-    <SearchContext.Provider value={contextValue}>
-      {children}
-    </SearchContext.Provider>
-  );
-};
+    return (
+        <SearchContext.Provider value={contextValue}>
+            {children}
+        </SearchContext.Provider>
+    )
+}

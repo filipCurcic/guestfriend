@@ -1,57 +1,57 @@
-import { FC } from 'react';
-import { Stack } from './../common/Stack';
+import { FC } from 'react'
+import { Stack } from './../common/Stack'
 
-import { type Color, StatusEnum } from '../../types/SharedTypes';
+import { type Color, StatusEnum } from '../../types/SharedTypes'
 
-import { useTicketContext } from '../../context/TicketContext';
+import { useTicketContext } from '../../context/TicketContext'
 import {
-  StyledColumnHeader,
-  StyledColumnHeaderButton,
-  StyledTicketCountStack,
-  StyledTitleTypography,
-} from '../../ui/ColumnHeader';
+    StyledColumnHeader,
+    StyledColumnHeaderButton,
+    StyledTicketCountStack,
+    StyledTitleTypography,
+} from '../../ui/ColumnHeader'
 
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid'
 
 type ColumnHeaderProps = {
-  title: string;
-  backgroundColor: Color;
-  status: StatusEnum;
-  numberOfTickets: number;
-};
+    title: string
+    backgroundColor: Color
+    status: StatusEnum
+    numberOfTickets: number
+}
 export const ColumnHeader: FC<ColumnHeaderProps> = ({
-  title,
-  status,
-  backgroundColor,
-  numberOfTickets,
+    title,
+    status,
+    backgroundColor,
+    numberOfTickets,
 }) => {
-  const { addTicket } = useTicketContext();
+    const { addTicket } = useTicketContext()
 
-  const handleNewTicket = () => {
-    addTicket('', status, uuidv4());
-  };
+    const handleNewTicket = () => {
+        addTicket('', status, uuidv4())
+    }
 
-  return (
-    <StyledColumnHeader
-      direction="vertical"
-      backgroundColor={backgroundColor}
-      data-testid={`columnHeader-${status}`}
-    >
-      <Stack align="center">
-        <StyledTitleTypography as="h2" aria-label={title}>
-          {title}
-        </StyledTitleTypography>
-        <StyledColumnHeaderButton
-          onClick={handleNewTicket}
-          aria-label="Add new ticket"
-          data-testid={`add-${status}`}
+    return (
+        <StyledColumnHeader
+            direction="vertical"
+            backgroundColor={backgroundColor}
+            data-testid={`columnHeader-${status}`}
         >
-          +
-        </StyledColumnHeaderButton>
-      </Stack>
-      <StyledTicketCountStack aria-live="polite" center>
-        ({numberOfTickets})
-      </StyledTicketCountStack>
-    </StyledColumnHeader>
-  );
-};
+            <Stack align="center">
+                <StyledTitleTypography as="h2" aria-label={title}>
+                    {title}
+                </StyledTitleTypography>
+                <StyledColumnHeaderButton
+                    onClick={handleNewTicket}
+                    aria-label="Add new ticket"
+                    data-testid={`add-${status}`}
+                >
+                    +
+                </StyledColumnHeaderButton>
+            </Stack>
+            <StyledTicketCountStack aria-live="polite" center>
+                ({numberOfTickets})
+            </StyledTicketCountStack>
+        </StyledColumnHeader>
+    )
+}
