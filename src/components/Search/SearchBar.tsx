@@ -1,8 +1,7 @@
 import { ChangeEvent, FC } from 'react'
 
-import { useSearchContext } from '../../context/SearchContext'
-
 import { StyledSearchInput } from '../../ui/SearchBar'
+import { useSearchContext } from '../../context/SearchContext'
 
 /**
  * __SearchBar__

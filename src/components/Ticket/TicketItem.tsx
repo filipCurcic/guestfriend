@@ -3,6 +3,12 @@ import { FC, useRef, ChangeEvent, useState } from 'react'
 import { TicketItemTextArea } from './TicketItemTextArea'
 
 import {
+    StyledTicketButton,
+    StyledTicketContainer,
+    StyledTicketContent,
+} from '../../ui/Ticket'
+
+import {
     SortableTypeEnum,
     StatusEnum,
     type Color,
@@ -12,11 +18,6 @@ import { useTicketContext } from '../../context/TicketContext'
 import { useTicketState } from '../../hooks/useTicketState'
 
 import { useSortable } from '@dnd-kit/sortable'
-import {
-    StyledTicketContainer,
-    StyledTicketButton,
-    StyledTicketContent,
-} from '../../ui/Ticket'
 
 export type TicketItemProps = {
     backgroundColor: Color

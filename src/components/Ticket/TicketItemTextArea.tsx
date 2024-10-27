@@ -1,5 +1,4 @@
 import { ChangeEvent, FC } from 'react'
-
 import { StyledTextarea } from '../../ui/Ticket'
 
 type TicketItemTextAreaProps = {

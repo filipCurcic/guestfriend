@@ -2,14 +2,14 @@ import { FC } from 'react'
 
 import { Stack } from './../common/Stack'
 
-import { useTicketContext } from '../../context/TicketContext'
-
 import {
     StyledColumnHeader,
     StyledColumnHeaderButton,
     StyledTicketCountStack,
     StyledTitleTypography,
 } from '../../ui/ColumnHeader'
+
+import { useTicketContext } from '../../context/TicketContext'
 
 import { type Color, StatusEnum } from '../../types/SharedTypes'
 
