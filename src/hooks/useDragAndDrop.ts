@@ -1,4 +1,8 @@
 import { useState } from 'react'
+
+import { useTicketContext } from '../context/TicketContext'
+import { type ActiveItem } from '../types/SharedTypes'
+
 import {
     DndContextProps,
     DragEndEvent,
@@ -7,8 +11,6 @@ import {
     useSensors,
 } from '@dnd-kit/core'
 import { PointerSensor } from '@dnd-kit/core'
-import { type ActiveItem } from '../types/SharedTypes'
-import { useTicketContext } from '../context/TicketContext'
 
 /**
  * __useDragAndDrop__
