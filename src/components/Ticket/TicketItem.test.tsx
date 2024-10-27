@@ -78,7 +78,7 @@ describe('TicketItem Component', () => {
         renderTicketItem()
 
         fireEvent.doubleClick(screen.getByText('Test Content'))
-        const editableTextArea = screen.getByRole('textbox')
+        const editableTextArea = screen.getByLabelText(`Edit ticket content`)
 
         fireEvent.change(editableTextArea, {
             target: { value: 'Updated Content' },
@@ -96,7 +96,7 @@ describe('TicketItem Component', () => {
         const contentElement = screen.getByText('Test Content')
         fireEvent.keyDown(contentElement, { key: 'Enter' })
 
-        const editableTextArea = screen.getByRole('textbox')
+        const editableTextArea = screen.getByLabelText(`Edit ticket content`)
         expect(editableTextArea).toBeInTheDocument()
 
         fireEvent.change(editableTextArea, {

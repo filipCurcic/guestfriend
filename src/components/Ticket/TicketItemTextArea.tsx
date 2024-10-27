@@ -3,8 +3,8 @@ import { ChangeEvent, FC } from 'react'
 import { StyledTextarea } from '../../ui/Ticket'
 
 type TicketItemTextAreaProps = {
-    onBlur: () => void
     value: string
+    onBlur: () => void
     onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void
 }
 

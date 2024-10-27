@@ -20,14 +20,18 @@ describe('Board Component', () => {
         renderBoard()
     })
 
-    it('should render a StatusColumn for each status in columns', () => {
+    afterEach(() => {
+        jest.clearAllMocks()
+    })
+
+    it('should render a StatusColumn for each status in mockColumns', () => {
         Object.keys(mockColumns).forEach((status) => {
             const columnElement = screen.getByTestId(`column-${status}`)
             expect(columnElement).toBeInTheDocument()
         })
     })
 
-    it('should display the name for the StatusColumn for each status in columns', () => {
+    it('should display the name for the StatusColumn for each status in mockColumns', () => {
         Object.keys(mockColumns).forEach(() => {
             const columnElements = screen.getAllByText(`To Do`)
             columnElements.forEach((element) => {

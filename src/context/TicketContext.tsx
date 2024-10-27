@@ -7,14 +7,16 @@ import {
     useMemo,
 } from 'react'
 
+import { useLocalStorage } from '../hooks/useLocalStorage'
+
 import {
     Column,
     LocalStorageKeysEnum,
     StatusEnum,
     type Ticket,
 } from '../types/SharedTypes'
+
 import { Active, Over } from '@dnd-kit/core'
-import { useLocalStorage } from '../hooks/useLocalStorage'
 
 type TicketContextType = {
     tickets: Record<string, Ticket>

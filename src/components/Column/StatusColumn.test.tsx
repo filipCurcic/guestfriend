@@ -17,7 +17,7 @@ const status = StatusEnum.TO_DO
 
 const mockFilteredTickets: Ticket[] = [
     { id: '1', content: 'Test Ticket 1', status },
-    { id: '2', content: 'Test Ticket 2', status: StatusEnum.TO_DO },
+    { id: '2', content: 'Test Ticket 2', status },
 ]
 
 const renderStatusColumn = (props = {}) => {
@@ -37,6 +37,10 @@ describe('StatusColumn Component', () => {
         renderStatusColumn()
     })
 
+    afterEach(() => {
+        jest.clearAllMocks()
+    })
+
     it('should render the column title', () => {
         const column = screen.getByText('To Do')
         expect(column).toBeInTheDocument()
@@ -47,9 +51,5 @@ describe('StatusColumn Component', () => {
             `(${mockFilteredTickets.length})`
         )
         expect(ticketsContainerElement).toBeInTheDocument()
-    })
-
-    afterEach(() => {
-        jest.clearAllMocks()
     })
 })

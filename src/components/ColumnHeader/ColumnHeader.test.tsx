@@ -29,6 +29,10 @@ describe('ColumnHeader Component', () => {
         renderColumnHeader()
     })
 
+    afterEach(() => {
+        jest.clearAllMocks()
+    })
+
     it('should render the column title', () => {
         const titleElement = screen.getByText('Test Column')
         expect(titleElement).toBeInTheDocument()

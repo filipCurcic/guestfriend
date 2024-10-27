@@ -13,7 +13,7 @@ import { useTicketState } from '../../hooks/useTicketState'
 
 import { useSortable } from '@dnd-kit/sortable'
 import {
-    StyledStackItem,
+    StyledTicketContainer,
     StyledTicketButton,
     StyledTicketContent,
 } from '../../ui/Ticket'
@@ -105,7 +105,7 @@ export const TicketItem: FC<TicketItemProps> = ({
     }
 
     return (
-        <StyledStackItem
+        <StyledTicketContainer
             ref={setNodeRef}
             {...attributes}
             {...listeners}
@@ -119,6 +119,7 @@ export const TicketItem: FC<TicketItemProps> = ({
             transition={transition}
             tabIndex={0}
             role="listitem"
+            aria-label={`${status} Ticket ${content}`}
             data-testid={id}
         >
             {isHovered && (
@@ -141,6 +142,6 @@ export const TicketItem: FC<TicketItemProps> = ({
                     {content || 'Add content'}
                 </StyledTicketContent>
             )}
-        </StyledStackItem>
+        </StyledTicketContainer>
     )
 }

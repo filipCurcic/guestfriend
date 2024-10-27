@@ -1,3 +1,5 @@
+import { FC } from 'react'
+
 import { Stack } from './../common/Stack'
 import { StatusColumn } from '../Column/StatusColumn'
 import { TicketItem } from './../Ticket/TicketItem'
@@ -9,8 +11,8 @@ import {
     type Color,
     StatusEnum,
 } from '../../types/SharedTypes'
+
 import { DragOverlay } from '@dnd-kit/core'
-import { FC } from 'react'
 
 type BoardProps = {
     activeItem?: ActiveItem

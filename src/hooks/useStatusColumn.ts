@@ -1,16 +1,16 @@
 import { useMemo } from 'react'
 
-import { SortableTypeEnum, StatusEnum, Ticket } from '../types/SharedTypes'
-
+import { useSearchContext } from '../context/SearchContext'
 import getStatus from '../util/getStatus'
 
+import { SortableTypeEnum, StatusEnum, Ticket } from '../types/SharedTypes'
+
 import { useSortable } from '@dnd-kit/sortable'
-import { useSearchContext } from '../context/SearchContext'
 
 /**
  * __useStatusColumn__
  *
- * Hook that filters tickets and returns statusData and sortableData
+ * Hook that filters tickets and returns statusData and sortableData as well as setNodeRef and isOver boolean from dnd useSortable hook
  * @param status a StatusEnum value
  * @param tickets array of Tickets
  *

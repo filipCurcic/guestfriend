@@ -8,7 +8,7 @@ import { StyledTypography } from '../../../ui/Typography'
  * Polymorphic typography component
  *
  * @param color sets the color of the text
- * @param as sets the element to be rendered as, defaults to a <p> tag
+ * @param as sets the element for the Typography component to be rendered as, defaults to a <p> tag
  *
  * @example <Typography color="red200"> Lorem ipsum </Typography>
  * @example <Typography as="h2"> Lorem ipsum </Typography>

@@ -17,6 +17,10 @@ describe('SearchBar Component', () => {
         renderSearch()
     })
 
+    afterEach(() => {
+        jest.clearAllMocks()
+    })
+
     it('should render the search input', () => {
         const inputElement = screen.getByLabelText('Search')
         expect(inputElement).toBeInTheDocument()
@@ -28,11 +32,5 @@ describe('SearchBar Component', () => {
         const inputElement = screen.getByLabelText('Search')
         fireEvent.change(inputElement, { target: { value: 'test search' } })
         expect(mockSetSearchTerm).toHaveBeenCalledWith('test search')
-    })
-
-    it('should update search term when input changes', () => {
-        const inputElement = screen.getByLabelText('Search')
-        fireEvent.change(inputElement, { target: { value: 'another search' } })
-        expect(mockSetSearchTerm).toHaveBeenCalledWith('another search')
     })
 })

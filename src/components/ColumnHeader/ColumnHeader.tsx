@@ -1,9 +1,9 @@
 import { FC } from 'react'
+
 import { Stack } from './../common/Stack'
 
-import { type Color, StatusEnum } from '../../types/SharedTypes'
-
 import { useTicketContext } from '../../context/TicketContext'
+
 import {
     StyledColumnHeader,
     StyledColumnHeaderButton,
@@ -11,13 +11,15 @@ import {
     StyledTitleTypography,
 } from '../../ui/ColumnHeader'
 
+import { type Color, StatusEnum } from '../../types/SharedTypes'
+
 import { v4 as uuidv4 } from 'uuid'
 
 type ColumnHeaderProps = {
-    title: string
     backgroundColor: Color
-    status: StatusEnum
     numberOfTickets: number
+    status: StatusEnum
+    title: string
 }
 
 /**
@@ -26,18 +28,18 @@ type ColumnHeaderProps = {
  * @component
  * Component that renders the header of a column, with a title and a button to add a new ticket
  *
- * @param title title of the header
- * @param status status of the column
  * @param backgroundColor background color of the header
  * @param numberOfTickets number of tickets in the column below the header
+ * @param title title of the header
+ * @param status status of the column
  *
  */
 
 export const ColumnHeader: FC<ColumnHeaderProps> = ({
-    title,
-    status,
     backgroundColor,
     numberOfTickets,
+    status,
+    title,
 }) => {
     const { addTicket } = useTicketContext()
 

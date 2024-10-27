@@ -8,7 +8,7 @@ import { StyledSearchInput } from '../../ui/SearchBar'
  * __SearchBar__
  *
  * @component
- * Search input component
+ * Search input component that sets the searchTerm context value
  *
  */
 

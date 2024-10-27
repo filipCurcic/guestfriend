@@ -6,11 +6,11 @@ import { type Ticket, StatusEnum, Color } from '../../types/SharedTypes'
 import { StyledTicketsContainer } from '../../ui/Ticket'
 
 type TicketsContainerProps = {
-    status: StatusEnum
-    tickets: Ticket[]
-    isOver: boolean
-    ticketColor: Color
     containerColor: Color
+    isOver: boolean
+    status: StatusEnum
+    ticketColor: Color
+    tickets: Ticket[]
 }
 
 /**
@@ -19,20 +19,20 @@ type TicketsContainerProps = {
  * @component
  * Component that renders the list of tickets
  *
- * @param ticketColor background color of the ticket
  * @param containerColor background color of the container
- * @param tickets array of tickets
- * @param status status of the column
  * @param isOver boolean that represents if the container is being hovered over by a dragged item
+ * @param status status of the column
+ * @param tickets array of tickets
+ * @param ticketColor background color of the ticket
  *
  */
 
 export const TicketsContainer: FC<TicketsContainerProps> = ({
-    ticketColor,
     containerColor,
-    tickets,
-    status,
     isOver,
+    status,
+    tickets,
+    ticketColor,
 }) => {
     return (
         <StyledTicketsContainer

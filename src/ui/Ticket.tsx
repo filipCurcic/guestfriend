@@ -8,7 +8,7 @@ import { Button } from '../components/common/Button'
 import { Stack } from '../components/common/Stack'
 import { Typography } from '../components/common/Typography'
 
-export const StyledStackItem = styled(Stack)<
+export const StyledTicketContainer = styled(Stack)<
     StackProps & {
         backgroundColor: Color
         transition?: string

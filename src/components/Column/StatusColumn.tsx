@@ -1,6 +1,6 @@
 import { FC } from 'react'
-import { Stack } from '../common/Stack'
 
+import { Stack } from '../common/Stack'
 import { TicketsContainer } from '../Ticket/TicketsContainer'
 import { ColumnHeader } from '../ColumnHeader/ColumnHeader'
 
