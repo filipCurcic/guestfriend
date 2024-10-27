@@ -31,9 +31,7 @@ function App() {
 
                         <SearchBar />
                     </StyledAppHeader>
-                    <main>
-                        <Board activeItem={activeItem} />
-                    </main>
+                    <Board activeItem={activeItem} />
                 </DndContext>
             </StyledInnerContainer>
         </StyledAppContainer>
